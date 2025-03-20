@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-signal-filter',
+    standalone: true,
+    imports: [CommonModule, FormsModule],
     template: `
     <div class="filter-container">
       <input
@@ -15,7 +17,6 @@ import { FormsModule } from '@angular/forms';
       />
     </div>
   `,
-    imports: [CommonModule, FormsModule],
     styles: [`
     .filter-container {
       flex: 1;

@@ -1,14 +1,16 @@
-import {CommonModule} from '@angular/common';
-import {Component,DestroyRef,inject,OnInit,Signal} from '@angular/core';
-import {takeUntilDestroyed,toSignal} from '@angular/core/rxjs-interop';
-import {FormControl,FormGroup,ReactiveFormsModule} from '@angular/forms';
-import {debounceTime,distinctUntilChanged,Observable,of,startWith,switchMap} from 'rxjs';
-import {Country} from '../../Modules/country';
-import {FilterPipe} from '../../Pipes/filter.pipe';
-import {CountryService} from '../../services/country.service';
+import { CommonModule } from '@angular/common';
+import { Component, DestroyRef, inject, OnInit, Signal } from '@angular/core';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { debounceTime, distinctUntilChanged, Observable, of, startWith, switchMap } from 'rxjs';
+import { Country } from '../../Modules/country';
+import { FilterPipe } from '../../Pipes/filter.pipe';
+import { CountryService } from '../../services/country.service';
 
 @Component({
     selector: 'app-solution7',
+    standalone: true,
+    imports: [CommonModule, ReactiveFormsModule, FilterPipe],
     template: `
     <h3>{{ title }}</h3>
     <div class="container">
@@ -34,10 +36,7 @@ import {CountryService} from '../../services/country.service';
           </ul> 
       </form>
     </div>
-  `,
-    imports: [CommonModule,
-        ReactiveFormsModule,
-        FilterPipe]
+  `
 })
 export class Solution7Component implements OnInit {
   title = '7- Pipe + Signal (based on stable values & optimise for efficient rendering) + Angular Reactive forms: formGroup, formControlName + takeUntilDestroyed';

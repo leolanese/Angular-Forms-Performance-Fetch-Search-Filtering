@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FilterPipe } from '../../Pipes/filter.pipe';
-import { MatInputModule } from '@angular/material/input';
-import { Observable, Subscription, debounceTime, distinctUntilChanged, map, of, switchMap } from 'rxjs';
-import { CountryService } from '../../services/country.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { Observable, Subscription, debounceTime, distinctUntilChanged, of, switchMap } from 'rxjs';
+import { FilterPipe } from '../../Pipes/filter.pipe';
+import { CountryService } from '../../services/country.service';
 
 interface Country {
   searchFilter: FormControl<string>;
@@ -13,9 +13,8 @@ interface Country {
 
 @Component({
     selector: 'app-solution4',
-    imports: [CommonModule, FilterPipe,
-        FormsModule, ReactiveFormsModule,
-        MatInputModule],
+    standalone: true,
+    imports: [CommonModule, FilterPipe, FormsModule, ReactiveFormsModule, MatInputModule],
     template: `
      <h3>{{ title }}</h3>
 

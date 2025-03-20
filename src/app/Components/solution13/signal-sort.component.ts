@@ -1,14 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, model, output } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'app-signal-sort',
-    template: `
+  selector: 'app-signal-sort',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
     <div class="sort-container">
       <select
-        [ngModel]="direction()"
-        (ngModelChange)="onDirectionChange($event)"
+        [value]="direction()"
+        (change)="onDirectionChange($event)"
         class="sort-select"
       >
         <option value="asc">Sort A-Z</option>
@@ -16,8 +17,7 @@ import { FormsModule } from '@angular/forms';
       </select>
     </div>
   `,
-    imports: [CommonModule, FormsModule],
-    styles: [`
+  styles: [`
     .sort-container {
       min-width: 150px;
     }
@@ -42,7 +42,8 @@ export class SignalSortComponent {
   direction = model.required<'asc' | 'desc'>();
   directionChange = output<'asc' | 'desc'>();
 
-  onDirectionChange(value: 'asc' | 'desc') {
+  onDirectionChange(event: Event) {
+    const value = (event.target as HTMLSelectElement).value as 'asc' | 'desc';
     this.direction.set(value);
     this.directionChange.emit(value);
   }

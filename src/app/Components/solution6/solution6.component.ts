@@ -1,17 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, Signal, effect, inject } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
-import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Observable, debounceTime, distinctUntilChanged, of, startWith, switchMap } from 'rxjs';
-import { FilterPipe } from '../../Pipes/filter.pipe';
 import { Country } from '../../Modules/country';
+import { FilterPipe } from '../../Pipes/filter.pipe';
 import { CountryService } from '../../services/country.service';
 
 @Component({
     selector: 'app-solution6',
-    imports: [CommonModule,
-        ReactiveFormsModule,
-        FilterPipe],
+    standalone: true,
+    imports: [CommonModule, ReactiveFormsModule, FilterPipe],
     template: `
     <h3>{{ title }}</h3>
     <div class="container">

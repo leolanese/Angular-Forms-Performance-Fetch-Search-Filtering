@@ -1,27 +1,29 @@
-import {CommonModule} from '@angular/common';
-import {Component,DestroyRef,OnInit,inject} from '@angular/core';
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {FormControl,FormGroup,FormsModule,ReactiveFormsModule} from '@angular/forms';
-import {Ng2SearchPipeModule} from '@ngx-maintenance/ng2-search-filter';
-import {Observable,debounceTime,distinctUntilChanged,map,of,switchMap} from 'rxjs';
-import {Country} from '../../Modules/country';
-import {CountryService} from '../../services/country.service';
+import { CommonModule } from '@angular/common';
+import { Component, DestroyRef, OnInit, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Observable, debounceTime, distinctUntilChanged, map, of, switchMap } from 'rxjs';
+import { Country } from '../../Modules/country';
+import { FilterPipe } from '../../Pipes/filter.pipe';
+import { CountryService } from '../../services/country.service';
 
 @Component({
     selector: 'app-solution5',
-    imports: [CommonModule,
-        FormsModule, ReactiveFormsModule,
-        Ng2SearchPipeModule],
+    standalone: true,
+    imports: [
+        CommonModule,
+        FormsModule, 
+        ReactiveFormsModule,
+        FilterPipe
+    ],
     template: `
      <h3>{{ title }}</h3>
 
      <div class="container">
         <div class="row">
-
           <form [formGroup]="filterForm">
               <input 
                 formControlName="searchFilter"     
-                
                 class="form-control" 
                 type="text" 
                 name="search" 
@@ -45,7 +47,7 @@ import {CountryService} from '../../services/country.service';
     styles: ``
 })
 export class Solution5Component implements OnInit {
-  title = '5- Pipe Ng2SearchPipeModule + Reactive form: formGroup, formControlName + takeUntilDestroyed';
+  title = '5- Pipe + Reactive form: formGroup, formControlName + takeUntilDestroyed';
   searchFilter: string = '';
 
   private countryService = inject(CountryService);
@@ -69,5 +71,4 @@ export class Solution5Component implements OnInit {
       })
     ) || of([]);
   }
-
 }

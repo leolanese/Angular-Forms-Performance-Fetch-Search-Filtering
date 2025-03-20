@@ -1,11 +1,11 @@
-import {Component,Input} from '@angular/core';
-import {FormControl,ReactiveFormsModule} from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { Component, Input } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-filter-input',
-    imports: [
-        ReactiveFormsModule
-    ],
+    standalone: true,
+    imports: [CommonModule, ReactiveFormsModule],
     template: `
     <input
       [formControl]="filterControl"

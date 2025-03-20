@@ -1,17 +1,16 @@
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Component, inject, DestroyRef } from '@angular/core';
-import { CountryService } from '../../services/country.service';
-import { Observable, Subject, debounceTime, distinctUntilChanged, of, startWith, switchMap, takeUntil } from 'rxjs';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Component, DestroyRef, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Observable, debounceTime, distinctUntilChanged, of, startWith, switchMap } from 'rxjs';
 import { Country } from '../../Modules/country';
 import { FilterPipe } from '../../Pipes/filter.pipe';
+import { CountryService } from '../../services/country.service';
 
 @Component({
     selector: 'app-solution3',
-    imports: [CommonModule,
-        FilterPipe,
-        FormsModule, ReactiveFormsModule],
+    standalone: true,
+    imports: [CommonModule, FilterPipe, FormsModule, ReactiveFormsModule],
     template: `
    <h3>{{ title }}</h3>
    <div class="container">

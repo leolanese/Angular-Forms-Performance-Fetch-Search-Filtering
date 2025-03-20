@@ -10,9 +10,8 @@ import { PaginationComponent } from "../solution11/pagination.component";
 import { SortDropdownComponent } from "../solution11/sort-dropdown.component";
 
 @Component({
-  selector: 'app-solution12',
-  standalone: true,
-  template: `
+    selector: 'app-solution12',
+    template: `
     <h3>{{ title }}</h3>
     <div class="container">
       <form [formGroup]="form">
@@ -36,14 +35,14 @@ import { SortDropdownComponent } from "../solution11/sort-dropdown.component";
       </form>
     </div>
   `,
-  imports: [
-    CommonModule, 
-    ReactiveFormsModule,
-    FilterInputComponent,
-    ListComponent,
-    PaginationComponent,
-    SortDropdownComponent
-  ]
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        FilterInputComponent,
+        ListComponent,
+        PaginationComponent,
+        SortDropdownComponent
+    ]
 })
 export class Solution12Component {
   title = '12 - Signal-based Component Driven Architecture (Search, Filter, Sort, Pagination)';

@@ -12,12 +12,11 @@ interface Country {
 }
 
 @Component({
-  selector: 'app-solution4',
-  standalone: true,
-  imports: [CommonModule, FilterPipe,
-            FormsModule, ReactiveFormsModule,
-            MatInputModule],
-  template: `
+    selector: 'app-solution4',
+    imports: [CommonModule, FilterPipe,
+        FormsModule, ReactiveFormsModule,
+        MatInputModule],
+    template: `
      <h3>{{ title }}</h3>
 
      <div class="container">

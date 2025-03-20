@@ -9,7 +9,6 @@ import { countries } from "../../services/mocks/countries";
 
 @Component({
     selector: 'app-solution10',
-    standalone: true,
     template: `
     <h3>{{ title }}</h3>
     <div class="container">   
@@ -43,7 +42,7 @@ import { countries } from "../../services/mocks/countries";
     </div>
   `,
     imports: [CommonModule,
-              ReactiveFormsModule]
+        ReactiveFormsModule]
 })
 export class Solution10Component {
   title = '10- rxjs + ReactiveFormsModule + FormGroup (optional) + formControl + takeUntilDestroyed';

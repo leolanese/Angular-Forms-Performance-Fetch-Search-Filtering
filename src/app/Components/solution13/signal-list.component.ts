@@ -3,10 +3,9 @@ import { Component, input } from '@angular/core';
 import { Country } from '../../services/signal-country.service';
 
 @Component({
-  selector: 'app-signal-list',
-  standalone: true,
-  imports: [CommonModule],
-  template: `
+    selector: 'app-signal-list',
+    imports: [CommonModule],
+    template: `
     <div class="list-container">
       @if (countries().length === 0) {
         <div class="no-results">No countries found</div>
@@ -22,7 +21,7 @@ import { Country } from '../../services/signal-country.service';
       }
     </div>
   `,
-  styles: [`
+    styles: [`
     .list-container {
       margin: 1rem 0;
     }

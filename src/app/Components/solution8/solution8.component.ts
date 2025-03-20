@@ -9,7 +9,6 @@ import { CountryService } from '../../services/country.service';
 
 @Component({
     selector: 'app-solution8',
-    standalone: true,
     template: `
     <h3>{{ title }}</h3>
 
@@ -43,8 +42,8 @@ import { CountryService } from '../../services/country.service';
     
   `,
     imports: [CommonModule,
-              ReactiveFormsModule,
-              FormsModule, FilterPipe]
+        ReactiveFormsModule,
+        FormsModule, FilterPipe]
 })
 export class Solution8Component {
     title = '8- Pipe + Signal + Template Driven form [(ngModel)] + onSearch event + takeUntilDestroyed';

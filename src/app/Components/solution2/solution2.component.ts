@@ -7,11 +7,10 @@ import { FilterPipe } from '../../Pipes/filter.pipe';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
-  selector: 'app-solution2',
-  standalone: true,
-  imports: [CommonModule,
-            FilterPipe],
-  template: `
+    selector: 'app-solution2',
+    imports: [CommonModule,
+        FilterPipe],
+    template: `
     <h3>{{ title }}</h3>
     <div class="container">
       <form>

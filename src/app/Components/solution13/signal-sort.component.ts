@@ -3,9 +3,8 @@ import { Component, model, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-signal-sort',
-  standalone: true,
-  template: `
+    selector: 'app-signal-sort',
+    template: `
     <div class="sort-container">
       <select
         [ngModel]="direction()"
@@ -17,8 +16,8 @@ import { FormsModule } from '@angular/forms';
       </select>
     </div>
   `,
-  imports: [CommonModule, FormsModule],
-  styles: [`
+    imports: [CommonModule, FormsModule],
+    styles: [`
     .sort-container {
       min-width: 150px;
     }

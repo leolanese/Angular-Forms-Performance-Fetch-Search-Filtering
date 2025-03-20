@@ -18,7 +18,6 @@ import { Solution9Component } from "./Components/solution9/solution9.component";
 
 @Component({
     selector: 'app-root',
-    standalone: true,
     template: `
       <h1>{{ title }}</h1>
 
@@ -40,11 +39,11 @@ import { Solution9Component } from "./Components/solution9/solution9.component";
       <router-outlet></router-outlet>
     `,
     imports: [
-        RouterModule, RouterOutlet, 
-// TODO: `HttpClientModule` should not be imported into a component directly.
-// Please refactor the code to add `provideHttpClient()` call to the provider list in the
-// application bootstrap logic and remove the `HttpClientModule` import from this component.
-HttpClientModule, CommonModule,
+        RouterModule, RouterOutlet,
+        // TODO: `HttpClientModule` should not be imported into a component directly.
+        // Please refactor the code to add `provideHttpClient()` call to the provider list in the
+        // application bootstrap logic and remove the `HttpClientModule` import from this component.
+        HttpClientModule, CommonModule,
         Solution1Component,
         Solution2Component,
         Solution3Component,
@@ -59,7 +58,7 @@ HttpClientModule, CommonModule,
         Solution12Component,
         Solution13Component
     ],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
   title = '⛔️ Angular Performancing test: Search, filters, signal:';

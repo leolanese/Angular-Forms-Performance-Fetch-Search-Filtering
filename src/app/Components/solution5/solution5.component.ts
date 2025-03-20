@@ -8,11 +8,10 @@ import {Country} from '../../Modules/country';
 import {CountryService} from '../../services/country.service';
 
 @Component({
-  selector: 'app-solution5',
-  standalone: true,
-  imports: [CommonModule, 
-            FormsModule, ReactiveFormsModule,
-            Ng2SearchPipeModule],
+    selector: 'app-solution5',
+    imports: [CommonModule,
+        FormsModule, ReactiveFormsModule,
+        Ng2SearchPipeModule],
     template: `
      <h3>{{ title }}</h3>
 

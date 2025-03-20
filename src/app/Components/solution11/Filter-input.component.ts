@@ -2,12 +2,11 @@ import {Component,Input} from '@angular/core';
 import {FormControl,ReactiveFormsModule} from '@angular/forms';
 
 @Component({
-  selector: 'app-filter-input',
-  standalone: true,
-  imports: [
-    ReactiveFormsModule
-  ],
-  template: `
+    selector: 'app-filter-input',
+    imports: [
+        ReactiveFormsModule
+    ],
+    template: `
     <input
       [formControl]="filterControl"
       class="form-control"

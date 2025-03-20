@@ -8,12 +8,11 @@ import { Country } from '../../Modules/country';
 import { CountryService } from '../../services/country.service';
 
 @Component({
-  selector: 'app-solution6',
-  standalone: true,
-  imports: [CommonModule, 
-            ReactiveFormsModule, 
-            FilterPipe],
-  template: `
+    selector: 'app-solution6',
+    imports: [CommonModule,
+        ReactiveFormsModule,
+        FilterPipe],
+    template: `
     <h3>{{ title }}</h3>
     <div class="container">
 
@@ -40,7 +39,7 @@ import { CountryService } from '../../services/country.service';
      </form>
 
     </div>
-  `,
+  `
 })
 export class Solution6Component {
   title = '6- Pipe + Signal + Angular Reactive forms: formGroup, formControlName + takeUntilDestroyed';

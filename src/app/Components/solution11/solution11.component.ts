@@ -14,9 +14,8 @@ import { SortDropdownComponent } from "./sort-dropdown.component";
 import { SearchService } from '../../services/jsonplaceholder.service';
 
 @Component({
-  selector: 'app-solution11',
-  standalone: true,
-  template: `
+    selector: 'app-solution11',
+    template: `
     <h3>{{ title }}</h3>
     <div class="container">
       <form [formGroup]="form">
@@ -41,7 +40,7 @@ import { SearchService } from '../../services/jsonplaceholder.service';
       </form>
     </div>
   `,
-  imports: [CommonModule, ReactiveFormsModule, PaginationComponent, ListComponent, SortDropdownComponent, FilterInputComponent]
+    imports: [CommonModule, ReactiveFormsModule, PaginationComponent, ListComponent, SortDropdownComponent, FilterInputComponent]
 })
 export class Solution11Component implements OnInit {
   title = '11 - Component Driven (Search, Filter, Sort, Pagination) using Array/List Data Structure';

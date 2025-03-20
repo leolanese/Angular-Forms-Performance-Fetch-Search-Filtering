@@ -9,7 +9,6 @@ import { CountryService } from '../../services/country.service';
 
 @Component({
     selector: 'app-solution9',
-    standalone: true,
     template: `
     <h3>{{ title }}</h3>
 
@@ -42,8 +41,8 @@ import { CountryService } from '../../services/country.service';
     
   `,
     imports: [CommonModule,
-              ReactiveFormsModule,
-              FormsModule, FilterPipe]
+        ReactiveFormsModule,
+        FormsModule, FilterPipe]
 })
 export class Solution9Component {
     title = '9- Pipe + signal + DestroyRef + Template Driven form [(ngModel)] + onSearch event + takeUntilDestroyed';

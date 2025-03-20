@@ -2,9 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, input, model } from '@angular/core';
 
 @Component({
-  selector: 'app-signal-pagination',
-  standalone: true,
-  template: `
+    selector: 'app-signal-pagination',
+    template: `
     <div class="pagination-container">
       <button 
         (click)="onPageChange(currentPage() - 1)"
@@ -25,8 +24,8 @@ import { Component, input, model } from '@angular/core';
       </button>
     </div>
   `,
-  imports: [CommonModule],
-  styles: [`
+    imports: [CommonModule],
+    styles: [`
     .pagination-container {
       display: flex;
       align-items: center;

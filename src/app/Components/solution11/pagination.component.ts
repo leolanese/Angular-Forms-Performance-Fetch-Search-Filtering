@@ -2,16 +2,15 @@ import {CommonModule} from '@angular/common';
 import {Component,EventEmitter,Input,Output} from '@angular/core';
 
 @Component({
-  selector: 'app-pagination',
-  standalone: true,
-  template: `
+    selector: 'app-pagination',
+    template: `
     <div>
       <button (click)="previousPage()" [disabled]="currentPage <= 0">Previous</button>
       <button (click)="nextPage()" [disabled]="currentPage >= totalPages - 1">Next</button>
       <p>Page {{ currentPage + 1 }} of {{ totalPages }}</p>
     </div>
   `,
-  imports: [CommonModule]
+    imports: [CommonModule]
 })
 export class PaginationComponent {
   @Input() currentPage: number = 0;

@@ -8,12 +8,11 @@ import { Country } from '../../Modules/country';
 import { FilterPipe } from '../../Pipes/filter.pipe';
 
 @Component({
-  selector: 'app-solution3',
-  standalone: true,
-  imports: [CommonModule, 
-            FilterPipe,
-            FormsModule, ReactiveFormsModule],
-  template: `
+    selector: 'app-solution3',
+    imports: [CommonModule,
+        FilterPipe,
+        FormsModule, ReactiveFormsModule],
+    template: `
    <h3>{{ title }}</h3>
    <div class="container">
 

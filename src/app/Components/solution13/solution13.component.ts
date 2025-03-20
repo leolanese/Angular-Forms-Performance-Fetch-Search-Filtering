@@ -7,16 +7,15 @@ import { SignalPaginationComponent } from './signal-pagination.component';
 import { SignalSortComponent } from './signal-sort.component';
 
 @Component({
-  selector: 'app-solution13',
-  standalone: true,
-  imports: [
-    CommonModule,
-    SignalFilterComponent,
-    SignalListComponent,
-    SignalPaginationComponent,
-    SignalSortComponent
-  ],
-  template: `
+    selector: 'app-solution13',
+    imports: [
+        CommonModule,
+        SignalFilterComponent,
+        SignalListComponent,
+        SignalPaginationComponent,
+        SignalSortComponent
+    ],
+    template: `
     <div class="container">
       <h2>Countries List</h2>
       
@@ -39,7 +38,7 @@ import { SignalSortComponent } from './signal-sort.component';
       }
     </div>
   `,
-  styles: [`
+    styles: [`
     .container {
       max-width: 800px;
       margin: 0 auto;

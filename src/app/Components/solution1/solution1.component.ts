@@ -8,12 +8,11 @@ import { FilterPipe } from '../../Pipes/filter.pipe';
 import { CountryService } from '../../services/country.service';
 
 @Component({
-  selector: 'app-solution1',
-  standalone: true,
-  imports: [CommonModule, 
-            FilterPipe, 
-            FormsModule],
-  template: `
+    selector: 'app-solution1',
+    imports: [CommonModule,
+        FilterPipe,
+        FormsModule],
+    template: `
     <h3>{{ title }}</h3>
     <div class="container">
     
@@ -34,7 +33,7 @@ import { CountryService } from '../../services/country.service';
             </div>
           }
         </ul>
-    </div>`,
+    </div>`
 })
 export class Solution1Component implements OnInit {
   title = '1- Pipe + Template Driven form [(ngModel)], ngModelOnChange + 2-way-binding + takeUntilDestroyed';

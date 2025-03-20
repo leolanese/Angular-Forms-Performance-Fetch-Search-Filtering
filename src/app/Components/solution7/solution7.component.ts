@@ -9,7 +9,6 @@ import {CountryService} from '../../services/country.service';
 
 @Component({
     selector: 'app-solution7',
-    standalone: true,
     template: `
     <h3>{{ title }}</h3>
     <div class="container">
@@ -37,8 +36,8 @@ import {CountryService} from '../../services/country.service';
     </div>
   `,
     imports: [CommonModule,
-              ReactiveFormsModule,
-              FilterPipe]
+        ReactiveFormsModule,
+        FilterPipe]
 })
 export class Solution7Component implements OnInit {
   title = '7- Pipe + Signal (based on stable values & optimise for efficient rendering) + Angular Reactive forms: formGroup, formControlName + takeUntilDestroyed';

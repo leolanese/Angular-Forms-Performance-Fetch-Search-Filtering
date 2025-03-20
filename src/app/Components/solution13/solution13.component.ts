@@ -8,6 +8,7 @@ import { SignalSortComponent } from './signal-sort.component';
 
 @Component({
     selector: 'app-solution13',
+    standalone: true,
     imports: [
         CommonModule,
         SignalFilterComponent,

@@ -3,6 +3,8 @@ import { Component, input, model } from '@angular/core';
 
 @Component({
     selector: 'app-signal-pagination',
+    standalone: true,
+    imports: [CommonModule],
     template: `
     <div class="pagination-container">
       <button 
@@ -24,7 +26,6 @@ import { Component, input, model } from '@angular/core';
       </button>
     </div>
   `,
-    imports: [CommonModule],
     styles: [`
     .pagination-container {
       display: flex;

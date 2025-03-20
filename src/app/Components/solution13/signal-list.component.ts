@@ -4,6 +4,7 @@ import { Country } from '../../services/signal-country.service';
 
 @Component({
     selector: 'app-signal-list',
+    standalone: true,
     imports: [CommonModule],
     template: `
     <div class="list-container">

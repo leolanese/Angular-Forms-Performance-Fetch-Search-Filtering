@@ -5,41 +5,58 @@ import { Country } from '../../services/signal-country.service';
 @Component({
   selector: 'app-signal-list',
   standalone: true,
+  imports: [CommonModule],
   template: `
     <div class="list-container">
-      @for (country of countries(); track country.idd) {
-        <div class="country-item">
-          <img [src]="country.flags.svg" [alt]="'Flag of ' + country.name" class="country-flag" />
-          <div class="country-info">
-            <i class="fas fa-search me-2"></i>
-            <p class="country-name mb-0">{{ country.name }}</p>
-          </div>
+      @if (countries().length === 0) {
+        <div class="no-results">No countries found</div>
+      } @else {
+        <div class="country-list">
+          @for (country of countries(); track country.name) {
+            <div class="country-item">
+              <img [src]="country.flags.svg" [alt]="country.name" class="flag" />
+              <span class="name">{{ country.name }}</span>
+            </div>
+          }
         </div>
       }
     </div>
   `,
-  imports: [CommonModule],
   styles: [`
     .list-container {
       margin: 1rem 0;
     }
+    .country-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
     .country-item {
       display: flex;
       align-items: center;
+      gap: 0.5rem;
       padding: 0.5rem;
-      border-bottom: 1px solid #eee;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      transition: all 0.2s;
     }
-    .country-flag {
-      width: 30px;
-      height: 20px;
-      margin-right: 1rem;
+    .country-item:hover {
+      background-color: #f8f9fa;
+      border-color: #007bff;
     }
-    .country-info {
-      display: flex;
-      align-items: center;
+    .flag {
+      width: 24px;
+      height: 16px;
+      object-fit: cover;
+      border-radius: 2px;
     }
-    .country-name {
-      margin: 0;
+    .name {
+      font-size: 1rem;
+    }
+    .no-results {
+      text-align: center;
+      padding: 2rem;
+      color: #666;
     }
   `]
 })

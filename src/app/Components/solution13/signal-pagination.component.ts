@@ -6,17 +6,21 @@ import { Component, input, model } from '@angular/core';
   standalone: true,
   template: `
     <div class="pagination-container">
-      <button
+      <button 
+        (click)="onPageChange(currentPage() - 1)"
         [disabled]="currentPage() === 0"
-        (click)="onPageChange(currentPage() - 1)">
+        class="pagination-button">
         Previous
       </button>
+      
       <span class="page-info">
         Page {{ currentPage() + 1 }} of {{ totalPages() }}
       </span>
-      <button
-        [disabled]="currentPage() === totalPages() - 1"
-        (click)="onPageChange(currentPage() + 1)">
+      
+      <button 
+        (click)="onPageChange(currentPage() + 1)"
+        [disabled]="currentPage() >= totalPages() - 1"
+        class="pagination-button">
         Next
       </button>
     </div>
@@ -30,19 +34,23 @@ import { Component, input, model } from '@angular/core';
       gap: 1rem;
       margin: 1rem 0;
     }
-    button {
+    .pagination-button {
       padding: 0.5rem 1rem;
-      border: 1px solid #ccc;
+      border: 1px solid #ddd;
       border-radius: 4px;
-      background: white;
+      background-color: white;
       cursor: pointer;
+      transition: all 0.2s;
     }
-    button:disabled {
+    .pagination-button:hover:not(:disabled) {
+      background-color: #f8f9fa;
+      border-color: #007bff;
+    }
+    .pagination-button:disabled {
       opacity: 0.5;
       cursor: not-allowed;
     }
     .page-info {
-      font-size: 0.9rem;
       color: #666;
     }
   `]
@@ -52,6 +60,8 @@ export class SignalPaginationComponent {
   totalPages = input.required<number>();
 
   onPageChange(page: number) {
-    this.currentPage.set(page);
+    if (page >= 0 && page < this.totalPages()) {
+      this.currentPage.set(page);
+    }
   }
 } 

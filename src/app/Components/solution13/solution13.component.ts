@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, effect, signal } from '@angular/core';
 import { SignalCountryService } from '../../services/signal-country.service';
 import { SignalFilterComponent } from './signal-filter.component';
 import { SignalListComponent } from './signal-list.component';
@@ -9,116 +9,109 @@ import { SignalSortComponent } from './signal-sort.component';
 @Component({
   selector: 'app-solution13',
   standalone: true,
-  template: `
-    <h3>{{ title }}</h3>
-    <div class="container">
-      @if (countryService.getCountries().isLoading()) {
-        <div>Loading...</div>
-      } @else if (countryService.getCountries().error()) {
-        <div class="error">{{ countryService.getCountries().error() }}</div>
-      } @else {
-        <app-signal-filter
-          [(filterValue)]="state().filter">
-        </app-signal-filter>
-
-        <app-signal-sort
-          [(direction)]="state().sort">
-        </app-signal-sort>
-
-        <app-signal-list [countries]="visibleCountries()"/>
-
-        <app-signal-pagination
-          [(currentPage)]="state().page"
-          [totalPages]="totalPages()">
-        </app-signal-pagination>
-
-        <p>Total found: {{ totalCount() }}</p>
-      }
-    </div>
-  `,
   imports: [
     CommonModule,
     SignalFilterComponent,
-    SignalSortComponent,
     SignalListComponent,
-    SignalPaginationComponent
-  ]
+    SignalPaginationComponent,
+    SignalSortComponent
+  ],
+  template: `
+    <div class="container">
+      <h2>Countries List</h2>
+      
+      @if (countryService.getCountries().isLoading()) {
+        <div class="loading">Loading...</div>
+      } @else if (countryService.getCountries().error()) {
+        <div class="error">{{ countryService.getCountries().error() }}</div>
+      } @else {
+        <div class="controls">
+          <app-signal-filter [(filterValue)]="filterText" />
+          <app-signal-sort [(direction)]="sortDirection" />
+        </div>
+
+        <app-signal-list [countries]="visibleCountries()" />
+
+        <app-signal-pagination
+          [(currentPage)]="currentPage"
+          [totalPages]="totalPages()"
+        />
+      }
+    </div>
+  `,
+  styles: [`
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+    .controls {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .loading, .error {
+      text-align: center;
+      padding: 2rem;
+      font-size: 1.2rem;
+    }
+    .error {
+      color: #dc3545;
+    }
+  `]
 })
 export class Solution13Component {
-  title = '13 - Pure Signal Architecture';
-  
-  countryService = inject(SignalCountryService);
-  
-  // State management using signals
-  state = signal({
-    filter: '',
-    sort: 'asc' as 'asc' | 'desc',
-    page: 0,
-    pageSize: 3
-  });
+  filterText = signal('');
+  sortDirection = signal<'asc' | 'desc'>('asc');
+  currentPage = signal(0);
+  itemsPerPage = 10;
 
-  // Computed signals for derived state
-  filterText = computed(() => this.state().filter);
-  sortDirection = computed(() => this.state().sort);
-  currentPageIndex = computed(() => this.state().page);
-  pageSize = computed(() => this.state().pageSize);
+  constructor(public countryService: SignalCountryService) {
+    this.countryService.fetchCountries();
 
-  // Computed signals for data transformation
-  private filteredCountries = computed(() => {
+    effect(() => {
+      // Reset page when filter or sort changes
+      this.currentPage.set(0);
+    }, { allowSignalWrites: true });
+
+    // Log when data is loaded
+    effect(() => {
+      const countries = this.countryService.getCountries().data();
+      console.log('Loaded countries:', countries);
+    });
+
+    // Log when filter changes
+    effect(() => {
+      console.log('Filter text:', this.filterText());
+      console.log('Filtered countries:', this.filteredCountries());
+    });
+  }
+
+  filteredCountries = computed(() => {
     const countries = this.countryService.getCountries().data();
     const filter = this.filterText().toLowerCase();
+    
+    if (!filter) return countries;
+    
     return countries.filter(country => 
       country.name.toLowerCase().includes(filter)
     );
   });
 
-  private sortedCountries = computed(() => {
-    const direction = this.sortDirection();
-    return [...this.filteredCountries()].sort((a, b) => 
-      direction === 'asc' 
-        ? a.name.localeCompare(b.name)
-        : b.name.localeCompare(a.name)
-    );
+  sortedCountries = computed(() => {
+    const countries = this.filteredCountries();
+    return [...countries].sort((a, b) => {
+      const comparison = a.name.localeCompare(b.name);
+      return this.sortDirection() === 'asc' ? comparison : -comparison;
+    });
   });
 
-  totalCount = computed(() => this.filteredCountries().length);
-  totalPages = computed(() => 
-    Math.ceil(this.sortedCountries().length / this.pageSize())
-  );
+  totalCount = computed(() => this.sortedCountries().length);
+  totalPages = computed(() => Math.ceil(this.totalCount() / this.itemsPerPage));
 
   visibleCountries = computed(() => {
-    const start = this.currentPageIndex() * this.pageSize();
-    return this.sortedCountries().slice(start, start + this.pageSize());
+    const start = this.currentPage() * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    return this.sortedCountries().slice(start, end);
   });
-
-  constructor() {
-    this.loadCountries();
-  }
-
-  // Actions
-  updateFilter(text: string) {
-    this.state.update(state => ({
-      ...state,
-      filter: text,
-      page: 0
-    }));
-  }
-
-  updateSort(direction: 'asc' | 'desc') {
-    this.state.update(state => ({
-      ...state,
-      sort: direction
-    }));
-  }
-
-  updatePage(page: number) {
-    this.state.update(state => ({
-      ...state,
-      page
-    }));
-  }
-
-  private async loadCountries() {
-    await this.countryService.fetchCountries();
-  }
 }

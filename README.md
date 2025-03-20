@@ -159,7 +159,68 @@
 ## Service Layer 
 SignalCountryService uses signals for: Data fetching, Loading states, Error handling
 
-> Solution13 represents a modern, fully signal-based Angular application with: Clean architecture, Efficient state management, Type-safe components, Reactive data flow, Optimised performance, Clear separation of concerns
+> Solution13 represents a modern, fully signal-based Angular application with: Clean architecture, Efficient state management, Type-safe components, Reactive data flow, Optimised performance, Clear separation of concerns, which is more efficient than traditional change detection and provides better developer experience.
+
+
+## Further explanation `Solution13 as fully signal-based`
+
+### Singal state management
+```js
+// Base signals for state
+filterText = signal('');
+sortDirection = signal<'asc' | 'desc'>('asc');
+currentPage = signal(0);
+```
+
+### Computed Signals for derived state:
+```js
+filteredCountries = computed(() => {
+  const countries = this.countryService.getCountries().data();
+  const filter = this.filterText().toLowerCase();
+  // ... filtering logic
+});
+
+sortedCountries = computed(() => {
+  const countries = this.filteredCountries();
+  // ... sorting logic
+});
+
+totalCount = computed(() => this.sortedCountries().length);
+totalPages = computed(() => Math.ceil(this.totalCount() / this.itemsPerPage));
+```
+
+### Effects for side effects
+
+```js
+effect(() => {
+  // Reset page when filter or sort changes
+  this.currentPage.set(0);
+}, { allowSignalWrites: true });
+```
+
+### Signal-based Service
+
+```js
+export class SignalCountryService {
+  private countries = signal<Country[]>([]);
+  private isLoading = signal(false);
+  private error = signal<string | null>(null);
+  // ...
+}
+```
+
+### Signal-based Components
+
+```js
+// In SignalFilterComponent
+filterValue = model.required<string>();
+
+// In SignalListComponent
+countries = input.required<Country[]>();
+```
+
+
+
 
 ---
 

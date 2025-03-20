@@ -10,24 +10,37 @@ import { FormsModule } from '@angular/forms';
       <input
         type="text"
         [ngModel]="filterValue()"
-        (ngModelChange)="filterValue.set($event)"
-        placeholder="Filter countries..."
+        (ngModelChange)="onFilterChange($event)"
+        placeholder="Search countries..."
+        class="filter-input"
       />
     </div>
   `,
   imports: [CommonModule, FormsModule],
   styles: [`
     .filter-container {
-      margin: 1rem 0;
+      flex: 1;
     }
-    input {
+    .filter-input {
       width: 100%;
-      padding: 0.5rem;
-      border: 1px solid #ccc;
+      padding: 0.5rem 1rem;
+      border: 1px solid #ddd;
       border-radius: 4px;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+    }
+    .filter-input:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
     }
   `]
 })
 export class SignalFilterComponent {
   filterValue = model.required<string>();
+
+  onFilterChange(value: string) {
+    console.log('Filter value changed:', value);
+    this.filterValue.set(value);
+  }
 } 

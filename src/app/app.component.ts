@@ -6,6 +6,7 @@ import { Solution1Component } from "./Components/solution1/solution1.component";
 import { Solution10Component } from "./Components/solution10/solution10.component";
 import { Solution11Component } from "./Components/solution11/solution11.component";
 import { Solution12Component } from './Components/solution12/solution12.component';
+import { Solution13Component } from './Components/solution13/solution13.component';
 import { Solution2Component } from './Components/solution2/solution2.component';
 import { Solution3Component } from './Components/solution3/solution3.component';
 import { Solution4Component } from "./Components/solution4/solution4.component";
@@ -34,6 +35,7 @@ import { Solution9Component } from "./Components/solution9/solution9.component";
         <a routerLink="/solution10">Solution 10</a> /
         <a routerLink="/solution11">Solution 11</a> /
         <a routerLink="/solution12">Solution 12</a> /
+        <a routerLink="/solution13">Solution 13</a> /
       </nav>
       <router-outlet></router-outlet>
     `,
@@ -50,7 +52,8 @@ import { Solution9Component } from "./Components/solution9/solution9.component";
         Solution9Component,
         Solution10Component,
         Solution11Component,
-        Solution12Component
+        Solution12Component,
+        Solution13Component
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })

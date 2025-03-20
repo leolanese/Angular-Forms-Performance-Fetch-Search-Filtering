@@ -28,11 +28,14 @@ export class SignalCountryService {
     
     try {
       const response = await fetch('https://restcountries.com/v3.1/all');
+      if (!response.ok) {
+        throw new Error('Failed to fetch countries');
+      }
       const data = await response.json();
       this.countries.set(data.map((country: any) => ({
         name: country.name.common,
         flags: country.flags,
-        idd: country.idd.root + (country.idd.suffixes?.[0] || '')
+        idd: country.idd?.root + (country.idd?.suffixes?.[0] || '') || country.cca2
       })));
     } catch (error) {
       this.error.set('Failed to load countries');

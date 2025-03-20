@@ -1,9 +1,4 @@
-import {
-    HttpHandlerFn,
-    HttpHeaders,
-    HttpInterceptorFn,
-    HttpRequest,
-} from '@angular/common/http';
+import { HttpHandlerFn, HttpHeaders, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
 
 const getHeaders = (reqheaders: HttpHeaders): any => {
     let headers: any = {};

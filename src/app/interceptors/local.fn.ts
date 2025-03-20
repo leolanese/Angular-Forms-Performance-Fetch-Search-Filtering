@@ -1,10 +1,6 @@
 // example local http interceptor function
 
-import {
-    HttpHandlerFn,
-    HttpInterceptorFn,
-    HttpRequest,
-  } from '@angular/common/http';
+import { HttpHandlerFn, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
 import { inject } from '@angular/core';
   
   export const LocalInterceptorFn: HttpInterceptorFn = (

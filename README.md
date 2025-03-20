@@ -1,4 +1,4 @@
-# Angular Pagination, Fetch, Search and Real-time filtering
+# Angular (19+) Performance: Pagination, Fetch, Search and Real-time filtering
 
 - This project serves as a comprehensive demonstration of Angular's flexibility in implementing the same core functionality through different patterns and approaches, each with its own trade-offs in terms of complexity, maintainability, and performance.
 

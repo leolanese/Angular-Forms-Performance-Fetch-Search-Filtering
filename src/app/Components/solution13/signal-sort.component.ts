@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, model } from '@angular/core';
 
 @Component({
   selector: 'app-signal-sort',
@@ -7,7 +7,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   template: `
     <div class="sort-container">
       <select
-        [value]="direction"
+        [value]="direction()"
         (change)="onDirectionChange($event)">
         <option value="asc">Ascending</option>
         <option value="desc">Descending</option>
@@ -28,12 +28,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   `]
 })
 export class SignalSortComponent {
-  @Input({ required: true }) direction: 'asc' | 'desc' = 'asc';
-  @Output() directionChange = new EventEmitter<'asc' | 'desc'>();
+  direction = model.required<'asc' | 'desc'>();
 
   onDirectionChange(event: Event) {
     const target = event.target as HTMLSelectElement;
-    const value = target.value as 'asc' | 'desc';
-    this.directionChange.emit(value);
+    this.direction.set(target.value as 'asc' | 'desc');
   }
 } 

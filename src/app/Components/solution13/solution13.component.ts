@@ -22,8 +22,7 @@ import { SignalSortComponent } from './signal-sort.component';
         </app-signal-filter>
 
         <app-signal-sort
-          [direction]="sortDirection()"
-          (directionChange)="updateSort($event)">
+          [(direction)]="state().sort">
         </app-signal-sort>
 
         <app-signal-list [countries]="visibleCountries()"/>

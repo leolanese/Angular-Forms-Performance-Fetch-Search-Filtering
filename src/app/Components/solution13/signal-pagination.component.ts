@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, input, model } from '@angular/core';
 
 @Component({
   selector: 'app-signal-pagination',
@@ -7,16 +7,16 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   template: `
     <div class="pagination-container">
       <button
-        [disabled]="currentPage === 0"
-        (click)="onPageChange(currentPage - 1)">
+        [disabled]="currentPage() === 0"
+        (click)="onPageChange(currentPage() - 1)">
         Previous
       </button>
       <span class="page-info">
-        Page {{ currentPage + 1 }} of {{ totalPages }}
+        Page {{ currentPage() + 1 }} of {{ totalPages() }}
       </span>
       <button
-        [disabled]="currentPage === totalPages - 1"
-        (click)="onPageChange(currentPage + 1)">
+        [disabled]="currentPage() === totalPages() - 1"
+        (click)="onPageChange(currentPage() + 1)">
         Next
       </button>
     </div>
@@ -48,11 +48,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   `]
 })
 export class SignalPaginationComponent {
-  @Input({ required: true }) currentPage = 0;
-  @Input({ required: true }) totalPages = 0;
-  @Output() pageChange = new EventEmitter<number>();
+  currentPage = model.required<number>();
+  totalPages = input.required<number>();
 
   onPageChange(page: number) {
-    this.pageChange.emit(page);
+    this.currentPage.set(page);
   }
 } 

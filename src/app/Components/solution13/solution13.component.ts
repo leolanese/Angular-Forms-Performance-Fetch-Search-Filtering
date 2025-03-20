@@ -28,9 +28,8 @@ import { SignalSortComponent } from './signal-sort.component';
         <app-signal-list [countries]="visibleCountries()"/>
 
         <app-signal-pagination
-          [currentPage]="currentPageIndex()"
-          [totalPages]="totalPages()"
-          (pageChange)="updatePage($event)">
+          [(currentPage)]="state().page"
+          [totalPages]="totalPages()">
         </app-signal-pagination>
 
         <p>Total found: {{ totalCount() }}</p>

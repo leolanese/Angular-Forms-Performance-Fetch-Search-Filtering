@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { Country } from '../../services/signal-country.service';
 
 @Component({
@@ -7,12 +7,12 @@ import { Country } from '../../services/signal-country.service';
   standalone: true,
   template: `
     <div class="list-container">
-      @for (country of countries; track country.name) {
-        <div class="country-card">
-          <img [src]="country.flags.svg" [alt]="country.name" class="flag">
+      @for (country of countries(); track country.idd) {
+        <div class="country-item">
+          <img [src]="country.flags.svg" [alt]="'Flag of ' + country.name" class="country-flag" />
           <div class="country-info">
-            <h3>{{ country.name }}</h3>
-            <p>Phone: {{ country.idd }}</p>
+            <i class="fas fa-search me-2"></i>
+            <p class="country-name mb-0">{{ country.name }}</p>
           </div>
         </div>
       }
@@ -21,39 +21,28 @@ import { Country } from '../../services/signal-country.service';
   imports: [CommonModule],
   styles: [`
     .list-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 1rem;
       margin: 1rem 0;
     }
-    .country-card {
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      padding: 1rem;
+    .country-item {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      padding: 0.5rem;
+      border-bottom: 1px solid #eee;
     }
-    .flag {
-      width: 50px;
-      height: 50px;
-      object-fit: cover;
-      border-radius: 4px;
+    .country-flag {
+      width: 30px;
+      height: 20px;
+      margin-right: 1rem;
     }
     .country-info {
-      flex: 1;
+      display: flex;
+      align-items: center;
     }
-    h3 {
+    .country-name {
       margin: 0;
-      font-size: 1.1rem;
-    }
-    p {
-      margin: 0.5rem 0 0;
-      font-size: 0.9rem;
-      color: #666;
     }
   `]
 })
 export class SignalListComponent {
-  @Input({ required: true }) countries: Country[] = [];
+  countries = input.required<Country[]>();
 }

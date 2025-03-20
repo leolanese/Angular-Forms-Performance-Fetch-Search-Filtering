@@ -9,6 +9,7 @@
 - Demonstrate different approaches to implement the same search functionality in Angular
 - Compare various Angular patterns and best practices
 - Show evolution from simple to complex implementations
+- Warning Spoil: Solution13 is the recommendation!
 
 ## Form Handling Approaches
 - Template-driven forms (Solutions 1, 8, 9)
@@ -22,8 +23,11 @@
 - FormControl direct binding (Solution 3)
 
 ## Advanced State:
-- Signals (Solutions 6, 7, 8, 9)
+- Signals (Solutions 6, 7, 8, 9, 13)
 - RxJS Streams (Solutions 10, 11)
+
+## Pure Signal:
+- Fully signal-based (Solution 13)
 
 ## Aditional API notes
 - Filtering: The end-point is already filtering depending on the user-input, but including the filter pipe in our template (countries$ | async | filter:searchFilter), Angular will apply the FilterPipe's transform method to the countries$ observable's emitted values. This means, that each time the countries$ observable emits a new array of countries, Angular will filter those (can be multiple) countries based on the searchFilter string using the logic defined in the FilterPipe. To test: input `UK` it should return only `Ukraine` then check for the console. You must see: `Filter pipe triggered:  true` once 
@@ -38,13 +42,13 @@
 
 ## Different solutions to filter data based on search input
 
-1) Uses:
+1) ✅ Uses:
 - Template-driven forms with [(ngModel)] 2-way binding with ngModelChange
 - Custom pipe filtering with filter pipe
 - RxJS with takeUntilDestroyed pattern
 - Reactive search with debounceTime and distinctUntilChanged
 
-2) Uses:
+2) ✅ Uses:
 - Template reference variables (#searchBox)
 - Event binding with (input)
 - Custom pipe filtering with filter pipe
@@ -52,14 +56,14 @@
 - Reactive search with debounceTime and distinctUntilChanged
 - Manual state management for search text
 
-3) Uses:
+3) ✅ Uses:
 - Reactive forms with FormControl and FormGroup
 - Direct FormControl binding with [formControl]
 - Custom pipe filtering
 - RxJS with startWith and takeUntilDestroyed
 - valueChanges observableformControl (directly binding the FormControl instance)
 
-4) Uses:
+4) ✅ Uses:
 - Material UI components
 - Reactive forms with formControlName
 - Custom pipe filtering with slice
@@ -67,35 +71,35 @@
 - Typed form controls with interfaces formControlName (directly bind to specific - - input element within the template) 
 - .get()
 
-5) Uses:
+5) ✅ Uses:
 - pipe Ng2SearchPipeModule for filtering
 - Reactive forms with formControlName
 - RxJS with takeUntilDestroyed
 - Null safety with optional chaining
 - RxJS error handling with map
 
-6) Uses:
+6) ✅ Uses:
 - Angular Signals with toSignal
 - Reactive forms with FormGroup
 - Effects for signal monitoring
 - Custom pipe filtering
 - RxJS with startWith and takeUntilDestroyed
 
-7) Uses:
+7) ✅ Uses:
 - Signals with toSignal (based on stable values & optimise for efficient rendering) 
 - Reactive forms with FormGroup and formControlName
 - Custom pipe filtering
 - RxJS with debounceTime and takeUntilDestroyed
 - Optimized for efficient rendering
 
-8) Uses:
+8) ✅ Uses:
 - Template-driven forms with [(ngModel)]
 - Signals with signal, computed, and effect
 - ViewChild for form access
 - Custom pipe filtering
 - Manual `onSearch` trigger with button
 
-9) Uses:
+9) ✅ Uses:
 - Template-driven forms with [(ngModel)]
 - Signals with signal
 - Simplified state management
@@ -103,7 +107,7 @@
 - Manual search trigger with button
 - DestroyRef for cleanup
 
-10) Uses:
+10) ✅ Uses:
 - Reactive forms with validation
 - FormBuilder service
 - RxJS combineLatest for data streams
@@ -112,7 +116,7 @@
 - RxJS operators (startWith, distinctUntilChanged)
 (based on https://github.com/leolanese/Angular-rxjs-filtering-list)
 
-11) Uses:
+11) ✅ Uses:
 - Component-driven architecture
 - Separate components for Filter, Sort, List, and Pagination
 - Advanced RxJS stream management
@@ -123,7 +127,7 @@
 
 > Solution 11 represents the most comprehensive RxJS Observable-based implementation, focusing on reactive programming patterns and stream manipulation.
 
-12) Uses:
+12) ✅ Uses:
 - Moving to pure signal
 - Signal-based form value tracking
 - Signal-based state management
@@ -135,6 +139,27 @@
 
 > This represents a modern Angular implementation using Signals instead of RxJS Observables for state management, while maintaining the component-driven architecture from Solution 11.
 
+13) ✅ Uses:
+### State Management
+- Uses a single state signal to manage all application state:
+
+### Data Flow
+- Parent component (Solution13Component):
+- Manages all state through signals
+- Uses computed signals for derived data
+- Handles data transformation (filtering, sorting, pagination)
+- Communicates with the service layer
+
+## Child Components 
+- SignalFilterComponent: Two-way binding with model() for -  filter text
+- SignalSortComponent: Two-way binding with model() for sort direction
+- SignalListComponent: Signal-based input for countries list
+- SignalPaginationComponent: Two-way binding with model() for current page
+
+## Service Layer 
+SignalCountryService uses signals for: Data fetching, Loading states, Error handling
+
+> Solution13 represents a modern, fully signal-based Angular application with: Clean architecture, Efficient state management, Type-safe components, Reactive data flow, Optimised performance, Clear separation of concerns
 
 ---
 

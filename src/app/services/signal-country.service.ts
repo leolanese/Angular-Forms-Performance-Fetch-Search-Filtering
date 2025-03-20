@@ -24,6 +24,7 @@ export class SignalCountryService {
     }))
   }));
 
+  // The request is automatically made when the resource is created (no need for explicit fetch)
   getCountries() {
     return {
       data: this.countriesResource.value,
@@ -32,6 +33,4 @@ export class SignalCountryService {
     };
   }
 
-  // The request is made automatically when the resource is created
-  // No need for explicit fetchCountries method anymore
 } 

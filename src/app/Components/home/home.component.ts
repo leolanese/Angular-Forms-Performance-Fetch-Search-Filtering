@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   standalone: true,
@@ -6,16 +6,6 @@ import {Component} from '@angular/core';
     <div class="card">
       <div class="card-header">
         {{pageTitle}}
-      </div>
-      <div class="card-body">
-        <div class="container-fluid">
-
-          <div class="text-center">Developed by:</div>
-          <div class="text-center">
-            <h3>Leo Lanese</h3>
-          </div>
-
-        </div>
       </div>
     </div>
   `

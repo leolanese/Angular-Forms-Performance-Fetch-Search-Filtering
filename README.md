@@ -29,10 +29,14 @@
 
 8) Pipe + Signal + Template Driven form [(ngModel)] + onSearch event + takeUntilDestroyed
 
-9) Pipe + Signal + Template Driven form [(ngModel)] + onSearch event + takeUntilDestroyed
+9) Pipe + Signal + DestroyRef + Template Driven form [(ngModel)] + onSearch event + takeUntilDestroyed
 
-10) rxjs + ReactiveFormsModule + formControlName (directly bind to specific input element within the template) + .valueChanges
+10) rxjs + ReactiveFormsModule + FormGroup (optional) + formControl + takeUntilDestroyed (directly bind to specific input element within the template) + .valueChanges
 (based on https://github.com/leolanese/Angular-rxjs-filtering-list)
+
+## Demo
+
+![demo](./src/assets/forms-playground.png)
 
 ---
 

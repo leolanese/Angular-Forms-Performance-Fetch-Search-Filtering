@@ -140,23 +140,22 @@
 > This represents a modern Angular implementation using Signals instead of RxJS Observables for state management, while maintaining the component-driven architecture from Solution 11.
 
 13) ✅ Uses:
-### State Management
-- Uses a single state signal to manage all application state:
+### Signal State Management
+- Uses a single state signal to manage all application state
 
-### Data Flow
-- Parent component (Solution13Component):
+### Signal Data Flow
 - Manages all state through signals
 - Uses computed signals for derived data
 - Handles data transformation (filtering, sorting, pagination)
 - Communicates with the service layer
 
-## Child Components 
-- SignalFilterComponent: Two-way binding with model() for -  filter text
+## Signal Child Components communication
+- SignalFilterComponent: Two-way binding with model() for filter text
 - SignalSortComponent: Two-way binding with model() for sort direction
 - SignalListComponent: Signal-based input for countries list
 - SignalPaginationComponent: Two-way binding with model() for current page
 
-## Service Layer 
+## Signal Service Layer communication
 SignalCountryService uses signals for: Data fetching, Loading states, Error handling
 
 > Solution13 represents a modern, fully signal-based Angular application with: Clean architecture, Efficient state management, Type-safe components, Reactive data flow, Optimised performance, Clear separation of concerns, which is more efficient than traditional change detection and provides better developer experience.

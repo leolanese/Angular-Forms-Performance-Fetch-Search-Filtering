@@ -1,7 +1,11 @@
-import { Injectable, signal } from '@angular/core';
+import { HttpResourceRef, httpResource } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
 export interface Country {
-  name: string;
+  name: {
+    common: string;
+    official: string;
+  };
   flags: { svg: string };
   idd: string;
 }
@@ -10,38 +14,24 @@ export interface Country {
   providedIn: 'root'
 })
 export class SignalCountryService {
-  private countries = signal<Country[]>([]);
-  private isLoading = signal(false);
-  private error = signal<string | null>(null);
+  private countriesResource: HttpResourceRef<Country[] | undefined> = httpResource<Country[]>(() => ({
+    url: 'https://restcountries.com/v3.1/all',
+    method: 'GET',
+    transform: (response: any[]) => response.map(country => ({
+      name: country.name,
+      flags: country.flags,
+      idd: country.idd?.root + (country.idd?.suffixes?.[0] || '') || country.cca2
+    }))
+  }));
 
   getCountries() {
     return {
-      data: this.countries,
-      isLoading: this.isLoading,
-      error: this.error
+      data: this.countriesResource.value,
+      isLoading: this.countriesResource.isLoading,
+      error: this.countriesResource.error
     };
   }
 
-  async fetchCountries() {
-    this.isLoading.set(true);
-    this.error.set(null);
-    
-    try {
-      const response = await fetch('https://restcountries.com/v3.1/all');
-      if (!response.ok) {
-        throw new Error('Failed to fetch countries');
-      }
-      const data = await response.json();
-      this.countries.set(data.map((country: any) => ({
-        name: country.name.common,
-        flags: country.flags,
-        idd: country.idd?.root + (country.idd?.suffixes?.[0] || '') || country.cca2
-      })));
-    } catch (error) {
-      this.error.set('Failed to load countries');
-      console.error('Failed to load countries:', error);
-    } finally {
-      this.isLoading.set(false);
-    }
-  }
+  // The request is made automatically when the resource is created
+  // No need for explicit fetchCountries method anymore
 } 

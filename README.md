@@ -26,10 +26,19 @@
 - Signals (Solutions 6, 7, 8, 9, 13)
 - RxJS Streams (Solutions 10, 11)
 
-## Pure Signal:
+## Pure Signal Solution: Component + Service (httpResource instead httpClient):
 - Fully signal-based (Solution 13)
+- This is using Angular 19.2+ new "httpResource()" API which is designed to work with signals and provides automatic state management for HTTP requests.
+- The `httpResource` provides built-in signals:
++ value for the data
++ isLoading for loading state
++ error for error state
+- Main features:
++ Automatic Reactivity
++ Default state
++ Data validation and transformation
 
-## Aditional API notes
+## Extra Aditional API notes:
 - Filtering: The end-point is already filtering depending on the user-input, but including the filter pipe in our template (countries$ | async | filter:searchFilter), Angular will apply the FilterPipe's transform method to the countries$ observable's emitted values. This means, that each time the countries$ observable emits a new array of countries, Angular will filter those (can be multiple) countries based on the searchFilter string using the logic defined in the FilterPipe. To test: input `UK` it should return only `Ukraine` then check for the console. You must see: `Filter pipe triggered:  true` once 
 
 ---

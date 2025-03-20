@@ -1,13 +1,14 @@
-import { Component, DestroyRef, OnInit, inject } from '@angular/core';
-import { Observable, of, Subject, debounceTime, distinctUntilChanged, switchMap, takeUntil } from 'rxjs';
-import { Country } from '../../Modules/country';
-import { CountryService } from '../../services/country.service';
 import { CommonModule } from '@angular/common';
-import { FilterPipe } from '../../Pipes/filter.pipe';
+import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Observable, Subject, debounceTime, distinctUntilChanged, of, switchMap } from 'rxjs';
+import { Country } from '../../Modules/country';
+import { FilterPipe } from '../../Pipes/filter.pipe';
+import { CountryService } from '../../services/country.service';
 
 @Component({
     selector: 'app-solution2',
+    standalone: true,
     imports: [CommonModule,
         FilterPipe],
     template: `

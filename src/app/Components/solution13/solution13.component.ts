@@ -67,10 +67,10 @@ export class Solution13Component {
   itemsPerPage = 10;
 
   constructor(public countryService: SignalCountryService) {
-    this.countryService.fetchCountries();
-
+    // Reset page when filter or sort changes
     effect(() => {
-      // Reset page when filter or sort changes
+      this.filterText();
+      this.sortDirection();
       this.currentPage.set(0);
     }, { allowSignalWrites: true });
 
@@ -88,20 +88,22 @@ export class Solution13Component {
   }
 
   filteredCountries = computed(() => {
-    const countries = this.countryService.getCountries().data();
+    const countries = this.countryService.getCountries().data() ?? [];
     const filter = this.filterText().toLowerCase();
     
     if (!filter) return countries;
     
     return countries.filter(country => 
-      country.name.toLowerCase().includes(filter)
+      country.name.common.toLowerCase().includes(filter)
     );
   });
 
   sortedCountries = computed(() => {
-    const countries = this.filteredCountries();
+    const countries = this.filteredCountries() ?? [];
     return [...countries].sort((a, b) => {
-      const comparison = a.name.localeCompare(b.name);
+      const nameA = String(a.name.common).toLowerCase();
+      const nameB = String(b.name.common).toLowerCase();
+      const comparison = nameA.localeCompare(nameB);
       return this.sortDirection() === 'asc' ? comparison : -comparison;
     });
   });

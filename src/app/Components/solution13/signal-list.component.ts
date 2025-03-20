@@ -12,10 +12,10 @@ import { Country } from '../../services/signal-country.service';
         <div class="no-results">No countries found</div>
       } @else {
         <div class="country-list">
-          @for (country of countries(); track country.name) {
+          @for (country of countries(); track country.idd) {
             <div class="country-item">
-              <img [src]="country.flags.svg" [alt]="country.name" class="flag" />
-              <span class="name">{{ country.name }}</span>
+              <img [src]="country.flags.svg" [alt]="country.name.common" class="flag" />
+              <span class="name">{{ country.name.common }}</span>
             </div>
           }
         </div>

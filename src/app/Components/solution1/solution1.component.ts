@@ -9,6 +9,7 @@ import { CountryService } from '../../services/country.service';
 
 @Component({
     selector: 'app-solution1',
+    standalone: true,
     imports: [CommonModule,
         FilterPipe,
         FormsModule],

@@ -1,4 +1,4 @@
-# Angular Fetch Search and filtering
+# Angular Pagination, Fetch, Search and Real-time filtering
 
 - This project serves as a comprehensive demonstration of Angular's flexibility in implementing the same core functionality through different patterns and approaches, each with its own trade-offs in terms of complexity, maintainability, and performance.
 
@@ -120,6 +120,21 @@
 - Comprehensive data handling (filter, sort, paginate)
 - SearchService integration
 - Smart and presentational component pattern
+
+> Solution 11 represents the most comprehensive RxJS Observable-based implementation, focusing on reactive programming patterns and stream manipulation.
+
+12) Uses:
+- Moving to pure signal
+- Signal-based form value tracking
+- Signal-based state management
+- signal() for writable state, computed() Computed values for filtering, sorting, and pagination, effect() for side effects, toSignal() for converting RxJS
+- Automatic dependency tracking between signals
+- Performance optimization through Signal-based reactivity
+- Reactive forms with FormGroup and FormControl (avoiding continuous re-evaluations caused by traditional getters)
+- Component composition (reusing Solution11's child components)
+
+> This represents a modern Angular implementation using Signals instead of RxJS Observables for state management, while maintaining the component-driven architecture from Solution 11.
+
 
 ---
 

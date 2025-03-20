@@ -44,7 +44,7 @@ import { SearchService } from '../../services/jsonplaceholder.service';
   imports: [CommonModule, ReactiveFormsModule, PaginationComponent, ListComponent, SortDropdownComponent, FilterInputComponent]
 })
 export class Solution11Component implements OnInit {
-  title = '10 - Component Driven (Search, Filter, Sort, Pagination) using Array/List Data Structure';
+  title = '11 - Component Driven (Search, Filter, Sort, Pagination) using Array/List Data Structure';
   data$: Observable<any[]> = of([]);
   filteredCountry$!: Observable<any[]>;
   form: FormGroup;

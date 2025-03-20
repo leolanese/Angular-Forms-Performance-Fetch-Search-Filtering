@@ -1,42 +1,125 @@
 # Angular Fetch Search and filtering
 
-## Angular fetch On Data From API. Using stand-alone Components, Observables and Subject strategies
+- This project serves as a comprehensive demonstration of Angular's flexibility in implementing the same core functionality through different patterns and approaches, each with its own trade-offs in terms of complexity, maintainability, and performance.
 
 - We are going to follow the `reactive forms` input value changes to fetch data from API. Using a `pipe to filter` data based on search input term: The Filter will filter the `payload from API end-point`.
 
-### Goal Keys
+## Overall Project Goals
 
-- `Template-driven forms` [(ngModel)] Vs `Reactive forms`: [FormControl]
-- Subscribe to API payload changes
-- Show Filter data based on search input term
+- Demonstrate different approaches to implement the same search functionality in Angular
+- Compare various Angular patterns and best practices
+- Show evolution from simple to complex implementations
+
+## Form Handling Approaches
+- Template-driven forms (Solutions 1, 8, 9)
+- Reactive forms (Solutions 3, 4, 10)
+- Manual event handling (Solution 2)
+- Component-driven forms (Solution 11)
+
+## Simple State:
+- Two-way binding (Solution 1)
+- Template reference variables (Solution 2)
+- FormControl direct binding (Solution 3)
+
+## Advanced State:
+- Signals (Solutions 6, 7, 8, 9)
+- RxJS Streams (Solutions 10, 11)
+
+## Aditional API notes
 - Filtering: The end-point is already filtering depending on the user-input, but including the filter pipe in our template (countries$ | async | filter:searchFilter), Angular will apply the FilterPipe's transform method to the countries$ observable's emitted values. This means, that each time the countries$ observable emits a new array of countries, Angular will filter those (can be multiple) countries based on the searchFilter string using the logic defined in the FilterPipe. To test: input `UK` it should return only `Ukraine` then check for the console. You must see: `Filter pipe triggered:  true` once 
 
-## Different solutions to filter data based on search input
-
-1) Pipe + Template Driven form [(ngModel)], ngModelOnChange + 2-way-binding[()]
-
-2) Pipe + Template reference variable (#), event-binding() + searchSubject
-
-3) Pipe + Angular Reactive forms: formGroup, formControl (directly binding the FormControl instance)
-
-4) Pipe + Material + Reactive forms: FormGroup, formControlName (directly bind to specific input element within the template) + .get()
-
-5) Pipe Ng2SearchPipeModule + Reactive form: formGroup, formControlName
-
-6) Pipe + Signal + Angular Reactive forms: formGroup, formControlName
-
-7) Pipe + Signal (based on stable values & optimise for efficient rendering) + Angular Reactive forms: formGroup, formControlName
-
-8) Pipe + Signal + Template Driven form [(ngModel)] + onSearch event + takeUntilDestroyed
-
-9) Pipe + Signal + DestroyRef + Template Driven form [(ngModel)] + onSearch event + takeUntilDestroyed
-
-10) rxjs + ReactiveFormsModule + FormGroup (optional) + formControl + takeUntilDestroyed (directly bind to specific input element within the template) + .valueChanges
-(based on https://github.com/leolanese/Angular-rxjs-filtering-list)
+---
 
 ## Demo
 
 ![demo](./src/assets/forms-playground.png)
+
+---
+
+## Different solutions to filter data based on search input
+
+1) Uses:
+- Template-driven forms with [(ngModel)] 2-way binding with ngModelChange
+- Custom pipe filtering with filter pipe
+- RxJS with takeUntilDestroyed pattern
+- Reactive search with debounceTime and distinctUntilChanged
+
+2) Uses:
+- Template reference variables (#searchBox)
+- Event binding with (input)
+- Custom pipe filtering with filter pipe
+- RxJS with takeUntilDestroyed pattern
+- Reactive search with debounceTime and distinctUntilChanged
+- Manual state management for search text
+
+3) Uses:
+- Reactive forms with FormControl and FormGroup
+- Direct FormControl binding with [formControl]
+- Custom pipe filtering
+- RxJS with startWith and takeUntilDestroyed
+- valueChanges observableformControl (directly binding the FormControl instance)
+
+4) Uses:
+- Material UI components
+- Reactive forms with formControlName
+- Custom pipe filtering with slice
+- RxJS subscription management
+- Typed form controls with interfaces formControlName (directly bind to specific - - input element within the template) 
+- .get()
+
+5) Uses:
+- pipe Ng2SearchPipeModule for filtering
+- Reactive forms with formControlName
+- RxJS with takeUntilDestroyed
+- Null safety with optional chaining
+- RxJS error handling with map
+
+6) Uses:
+- Angular Signals with toSignal
+- Reactive forms with FormGroup
+- Effects for signal monitoring
+- Custom pipe filtering
+- RxJS with startWith and takeUntilDestroyed
+
+7) Uses:
+- Signals with toSignal (based on stable values & optimise for efficient rendering) 
+- Reactive forms with FormGroup and formControlName
+- Custom pipe filtering
+- RxJS with debounceTime and takeUntilDestroyed
+- Optimized for efficient rendering
+
+8) Uses:
+- Template-driven forms with [(ngModel)]
+- Signals with signal, computed, and effect
+- ViewChild for form access
+- Custom pipe filtering
+- Manual `onSearch` trigger with button
+
+9) Uses:
+- Template-driven forms with [(ngModel)]
+- Signals with signal
+- Simplified state management
+- Custom pipe filtering
+- Manual search trigger with button
+- DestroyRef for cleanup
+
+10) Uses:
+- Reactive forms with validation
+- FormBuilder service
+- RxJS combineLatest for data streams
+- Mock data with static countries
+- Form validation error messages
+- RxJS operators (startWith, distinctUntilChanged)
+(based on https://github.com/leolanese/Angular-rxjs-filtering-list)
+
+11) Uses:
+- Component-driven architecture
+- Separate components for Filter, Sort, List, and Pagination
+- Advanced RxJS stream management
+- FormBuilder with reactive forms
+- Comprehensive data handling (filter, sort, paginate)
+- SearchService integration
+- Smart and presentational component pattern
 
 ---
 

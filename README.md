@@ -7,7 +7,7 @@
 
 ## Demo
 
-![demo](./src/assets/forms-playground.png)
+![demo](./src/assets/forms-playground2.png)
 
 ---
 

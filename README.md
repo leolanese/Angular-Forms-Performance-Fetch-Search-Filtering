@@ -374,5 +374,5 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ##### :radio_button: gitroll: <a href="https://gitroll.io/profile/uCOZ9SM8b7ne9h17NuPuKVky9uFh2" target="_blank">LeoLanese</a>
 ##### :radio_button: Linkedin: <a href="https://www.linkedin.com/in/leolanese/" target="_blank">LeoLanese</a>
 ##### :radio_button: Twitter: <a href="https://twitter.com/LeoLanese" target="_blank">@LeoLanese</a>
-##### :radio_button: Blog: <a href="https://www.dev.to/leolanese" target="_blank">dev.to/leolanese</a>
+##### :radio_button: Blog: <a href="https://www.dev.to/leolanese" target="_blank">Blog/a>
 ##### :radio_button: Questions / Suggestions / Recommendations: <a href="mailto:developer@leolanese.com">developer@leolanese.com</a>

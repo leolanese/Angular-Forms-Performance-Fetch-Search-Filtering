@@ -46,7 +46,6 @@ import { SignalSortComponent } from './signal-sort.component';
       padding: 1rem;
     }
     .controls {
-      display: flex;
       gap: 1rem;
       margin-bottom: 1rem;
     }

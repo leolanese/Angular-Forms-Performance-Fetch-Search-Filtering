@@ -9,19 +9,19 @@ import { RouterLink, RouterOutlet } from '@angular/router';
     <h1>{{ title }}</h1>
     
     <nav>
-      <a routerLink="/solution1">Solution 1</a> /
-      <a routerLink="/solution2">Solution 2</a> /
-      <a routerLink="/solution3">Solution 3</a> /
-      <a routerLink="/solution4">Solution 4</a> /
-      <a routerLink="/solution5">Solution 5</a> /
-      <a routerLink="/solution6">Solution 6</a> /
-      <a routerLink="/solution7">Solution 7</a> /
-      <a routerLink="/solution8">Solution 8</a> /
-      <a routerLink="/solution9">Solution 9</a> /
-      <a routerLink="/solution10">Solution 10</a> /
-      <a routerLink="/solution11">Solution 11</a> /
-      <a routerLink="/solution12">Solution 12</a> /
-      <a routerLink="/solution13">Solution 13</a>
+      <a routerLink="/solution1">Solution 1 🔴</a> /
+      <a routerLink="/solution2">Solution 2 🔴</a> /
+      <a routerLink="/solution3">Solution 3 🟡</a> /
+      <a routerLink="/solution4">Solution 4 🟡</a> /
+      <a routerLink="/solution5">Solution 5 🟡</a> /
+      <a routerLink="/solution6">Solution 6 🟡</a> /
+      <a routerLink="/solution7">Solution 7 🟡</a> /
+      <a routerLink="/solution8">Solution 8 🟡</a> /
+      <a routerLink="/solution9">Solution 9 🟡</a> /
+      <a routerLink="/solution10">Solution 10 🟡</a> /
+      <a routerLink="/solution11">Solution 11 🟡</a> /
+      <a routerLink="/solution12">Solution 12 🟢</a> /
+      <a routerLink="/solution13">Solution 13 🟢</a>
     </nav>
 
     <router-outlet></router-outlet>
@@ -34,6 +34,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
       border-radius: 4px;
     }
     nav a {
+      font-size: 1.2rem;
       margin: 0 0.5rem;
       text-decoration: none;
       color: #333;
@@ -44,6 +45,6 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   `]
 })
 export class AppComponent {
-  title = '⛔️ Angular Performancing test: Search, filters, signal';
+  title = '🏁 Angular (19+) Signal Power: Angular Forms, Search & Filter Performance Lab';
 }
 

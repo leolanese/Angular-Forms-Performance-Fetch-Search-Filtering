@@ -22,9 +22,6 @@ import { FormsModule } from '@angular/forms';
       flex: 1;
     }
     .filter-input {
-      width: 100%;
-      padding: 0.5rem 1rem;
-      border: 1px solid #ddd;
       border-radius: 4px;
       font-size: 1rem;
       transition: border-color 0.2s;

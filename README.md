@@ -205,22 +205,22 @@
 
 13) ✅ Uses:
 ### Signal State Management
-- Uses a single state signal to manage all application state
+✔ Uses a single state signal to manage all application state
 
 ### Signal Data Flow
-- Manages all state through signals
-- Uses computed signals for derived data
-- Handles data transformation (filtering, sorting, pagination)
-- Communicates with the service layer
+✔ Manages all state through signals
+✔ Uses computed signals for derived data
+✔ Handles data transformation (filtering, sorting, pagination)
+✔ Communicates with the service layer
 
 ## Signal Child Components communication
-- SignalFilterComponent: Two-way binding with model() for filter text
-- SignalSortComponent: Two-way binding with model() for sort direction
-- SignalListComponent: Signal-based input for countries list
-- SignalPaginationComponent: Two-way binding with model() for current page
+✔ SignalFilterComponent: Two-way binding with model() for filter text
+✔ SignalSortComponent: Two-way binding with model() for sort direction
+✔ SignalListComponent: Signal-based input for countries list
+✔ SignalPaginationComponent: Two-way binding with model() for current page
 
 ## Signal Service Layer communication
-SignalCountryService uses signals for: Data fetching, Loading states, Error handling
+✔ SignalCountryService uses signals for: Data fetching, Loading states, Error handling
 
 > Solution13 represents a modern, fully signal-based Angular application with: Clean architecture, Efficient state management, Type-safe components, Reactive data flow, Optimised performance, Clear separation of concerns, which is more efficient than traditional change detection and provides better developer experience.
 
@@ -284,29 +284,6 @@ countries = input.required<Country[]>();
 
 ---
 
-## Final Soltution13 explanation
-
-1. Data Fetching with Signals
-- Service: SignalCountryService uses Angular’s new httpResource API to fetch country data from the REST Countries API.
-- Signals: The service exposes the data, loading, and error states as signals via the getCountries() method.
-- Automatic Fetch: The HTTP request is made automatically when the resource is created; no manual fetch is needed.
-
-2. Child Components:
-- SignalFilterComponent:
-Uses model.required<string>() for two-way binding of the filter text signal.
-Emits changes to the parent.
-- SignalSortComponent:
-Uses model.required<'asc' | 'desc'>() for two-way binding of sort direction.
-Emits changes to the parent.
-- SignalPaginationComponent:
-Uses model.required<number>() for two-way binding of the current page.
-Receives total pages as an input signal.
-- SignalListComponent:
-Receives the visible countries as a signal input and displays them.
-
-
----
-
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17+
 
 ```js
@@ -363,7 +340,7 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
 ---
----
+
 ### :100: <i>Thanks!</i>
 #### Now, don't be an stranger. Let's stay in touch ‼
 

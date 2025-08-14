@@ -113,18 +113,14 @@ import { CountryService } from '../../services/country.service';
   `]
 })
 export class Solution14Component {
-  // Injected dependencies
   private readonly countryService = inject(CountryService);
 
-  // Properties
-  protected readonly title = '🏆 14 - Pure Signal-Based Architecture with Real API (Search, Filter, Sort)';
-
-  // State signals
+  protected readonly title = '🏆 14 - Signal + Observable Architecture';
   protected readonly searchTerm = signal('');
   protected readonly isLoading = signal(false);
-  protected readonly error = signal<{message: string} | null>(null);
+  protected readonly error = signal<string | null>(null);
 
-  // Best Practice: Signal for state + Observable for HTTP
+  // Convert Observable to Signal using toSignal with debounce and error handling
   protected readonly countries = toSignal(
     toObservable(this.searchTerm).pipe(
       debounceTime(300),

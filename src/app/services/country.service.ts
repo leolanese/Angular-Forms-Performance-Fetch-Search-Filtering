@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Observable, of, catchError } from 'rxjs';
+import { Observable, catchError, of } from 'rxjs';
 import { Country } from '../Modules/country';
 
 @Injectable({
@@ -19,6 +19,7 @@ export class CountryService {
       .get<Country[]>(url)
       .pipe(catchError(this.handleError<Country[]>('countries', [])));
   }
+  
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.log(`failed: ${error.message}`);

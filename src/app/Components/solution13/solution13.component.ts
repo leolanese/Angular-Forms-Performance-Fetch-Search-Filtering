@@ -18,16 +18,7 @@ import { SignalSortComponent } from './signal-sort.component';
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
-<!-- 
--Solution 13: Signal-based Component Driven Architecture
--Uses signal(), computed(), effect()
--Modern control flow (@if, @for)
--Component composition
--Pure signal-based state management
-No legacy FormBuilder/FormGroup
--->
       <h3>{{ title }}</h3>
-      <div class="container">
         
         @if (countryService.getCountries().isLoading()) {
           <div class="loading">Loading...</div>
@@ -46,7 +37,6 @@ No legacy FormBuilder/FormGroup
             [totalPages]="totalPages()"
           />
         }
-    </div>
   `,
     styles: [`
       .controls {

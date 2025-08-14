@@ -150,8 +150,7 @@ export class Solution14Component {
     if (!search) return countries;
 
     return countries.filter((country: Country) =>
-      country.name.official.toLowerCase().includes(search) ||
-      (country.region && country.region.toLowerCase().includes(search))
+      country.name.official.toLowerCase().includes(search)
     );
   });
 }

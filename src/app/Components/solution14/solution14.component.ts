@@ -1,15 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, effect, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, signal } from '@angular/core';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
-import { toSignal, toObservable } from '@angular/core/rxjs-interop';
-import { debounceTime, distinctUntilChanged, switchMap, of } from 'rxjs';
-import { CountryService } from '../../services/country.service';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 import { Country } from '../../Modules/country';
+import { CountryService } from '../../services/country.service';
 
 @Component({
   selector: 'app-solution14',
   standalone: true,
   imports: [CommonModule, FormsModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <h3>{{ title }}</h3>
     <div class="container">
@@ -112,16 +113,15 @@ import { Country } from '../../Modules/country';
   `]
 })
 export class Solution14Component {
-  title = '🏆 14 - Pure Signal-Based Architecture with Real API (Search, Filter, Sort)';
-
-  // Modern signal-based search term
-  searchTerm = signal('');
+  // Injected dependencies
+  private readonly countryService = inject(CountryService);
   
-  // Service injection using inject() function
-  private countryService = inject(CountryService);
+  // Properties
+  protected readonly title = '🏆 14 - Pure Signal-Based Architecture with Real API (Search, Filter, Sort)';
+  protected readonly searchTerm = signal('');
   
   // Convert signal to observable, then back to signal with debouncing and real API calls
-  countries = toSignal(
+  protected readonly countries = toSignal(
     toObservable(this.searchTerm).pipe(
       debounceTime(300),
       distinctUntilChanged(),
@@ -131,7 +131,7 @@ export class Solution14Component {
   );
   
   // Computed signals for derived state
-  filteredCountries = computed(() => {
+  protected readonly filteredCountries = computed(() => {
     const countries = this.countries();
     const search = this.searchTerm().toLowerCase();
     
@@ -143,15 +143,16 @@ export class Solution14Component {
     );
   });
   
-  // Loading and error states as signals
-  isLoading = signal(false);
-  error = signal<string | null>(null);
-  
-  onSearchChange(value: string) {
+  // Methods
+  protected onSearchChange(value: string): void {
     this.searchTerm.set(value);
   }
   
   constructor() {
+    this.initLogging();
+  }
+  
+  private initLogging(): void {
     // Log search term changes (for debugging)
     effect(() => {
       console.log('Search term changed:', this.searchTerm());

@@ -124,7 +124,7 @@ export class Solution14Component {
   protected readonly isLoading = signal(false);
   protected readonly error = signal<string | null>(null);
 
-  // Create a signal-based observable with debounce, loading, and error handling
+  // Best Practice: Signal for state + Observable for HTTP
   protected readonly countries = toSignal(
     toObservable(this.searchTerm).pipe(
       debounceTime(300),

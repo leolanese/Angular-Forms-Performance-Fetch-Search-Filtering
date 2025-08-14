@@ -1,19 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SignalCountryService } from '../../services/signal-country.service';
-
-// Use the Country type from the signal service
-type Country = {
-  name: {
-    common: string;
-    official: string;
-  };
-  flags: { svg: string };
-  idd: string;
-  region?: string;
-  population?: number;
-};
+import { toSignal, toObservable } from '@angular/core/rxjs-interop';
+import { debounceTime, distinctUntilChanged, switchMap, of } from 'rxjs';
+import { CountryService } from '../../services/country.service';
+import { Country } from '../../Modules/country';
 
 @Component({
   selector: 'app-solution14',
@@ -51,9 +42,7 @@ type Country = {
                 class="country-flag"
               />
               <div class="country-info">
-                <h3>{{ country.name.official }}</h3>
-                <p>{{ country.region }}</p>
-                <p>Population: {{ country.population | number }}</p>
+                <p>{{ country.name.official }}</p>
               </div>
             </div>
           }
@@ -120,39 +109,26 @@ type Country = {
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
-    
-    .country-flag {
-      width: 100%;
-      height: 150px;
-      object-fit: cover;
-    }
-    
-    .country-info {
-      padding: 1rem;
-    }
-    
-    .country-info h3 {
-      margin: 0 0 0.5rem 0;
-      font-size: 1.1rem;
-    }
-    
-    .country-info p {
-      margin: 0.25rem 0;
-      color: #666;
-    }
   `]
 })
 export class Solution14Component {
-  title = '🏆 14 - Pure Signal-Based Architecture (Search, Filter, Sort)';
+  title = '🏆 14 - Pure Signal-Based Architecture with Real API (Search, Filter, Sort)';
 
   // Modern signal-based search term
   searchTerm = signal('');
   
   // Service injection using inject() function
-  private countryService = inject(SignalCountryService);
+  private countryService = inject(CountryService);
   
-  // Countries data from signal service
-  countries = this.countryService.getCountries().data;
+  // Convert signal to observable, then back to signal with debouncing and real API calls
+  countries = toSignal(
+    toObservable(this.searchTerm).pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap((term: string) => this.countryService.searchCountries(term))
+    ),
+    { initialValue: [] as Country[] }
+  );
   
   // Computed signals for derived state
   filteredCountries = computed(() => {
@@ -167,9 +143,9 @@ export class Solution14Component {
     );
   });
   
-  // Loading and error states from signal service
-  isLoading = this.countryService.getCountries().isLoading;
-  error = this.countryService.getCountries().error;
+  // Loading and error states as signals
+  isLoading = signal(false);
+  error = signal<string | null>(null);
   
   onSearchChange(value: string) {
     this.searchTerm.set(value);
@@ -179,6 +155,12 @@ export class Solution14Component {
     // Log search term changes (for debugging)
     effect(() => {
       console.log('Search term changed:', this.searchTerm());
+    });
+    
+    // Log when countries data changes
+    effect(() => {
+      const countries = this.countries();
+      console.log('Countries loaded:', countries.length);
     });
   }
 }

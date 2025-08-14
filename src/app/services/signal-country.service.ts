@@ -34,7 +34,14 @@ export class SignalCountryService {
     
     try {
       // Try to fetch all countries, but with better error handling
-      const response = await fetch('https://restcountries.com/v3.1/all');
+      // Use a more reliable endpoint or add headers
+      const response = await fetch('https://restcountries.com/v3.1/all', {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      });
       
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -57,6 +64,7 @@ export class SignalCountryService {
       this.loadingSignal.set(false);
       
       // Fallback to mock data if API fails
+      console.log('Loading mock data as fallback...');
       this.loadMockData();
     }
   }
@@ -97,9 +105,59 @@ export class SignalCountryService {
         idd: 'DE',
         region: 'Europe',
         population: 83240525
+      },
+      {
+        name: { common: 'France', official: 'French Republic' },
+        flags: { svg: 'https://flagcdn.com/fr.svg' },
+        idd: 'FR',
+        region: 'Europe',
+        population: 67391582
+      },
+      {
+        name: { common: 'Italy', official: 'Italian Republic' },
+        flags: { svg: 'https://flagcdn.com/it.svg' },
+        idd: 'IT',
+        region: 'Europe',
+        population: 60461826
+      },
+      {
+        name: { common: 'Spain', official: 'Kingdom of Spain' },
+        flags: { svg: 'https://flagcdn.com/es.svg' },
+        idd: 'ES',
+        region: 'Europe',
+        population: 47351567
+      },
+      {
+        name: { common: 'Japan', official: 'Japan' },
+        flags: { svg: 'https://flagcdn.com/jp.svg' },
+        idd: 'JP',
+        region: 'Asia',
+        population: 125836021
+      },
+      {
+        name: { common: 'Brazil', official: 'Federative Republic of Brazil' },
+        flags: { svg: 'https://flagcdn.com/br.svg' },
+        idd: 'BR',
+        region: 'Americas',
+        population: 212559409
+      },
+      {
+        name: { common: 'India', official: 'Republic of India' },
+        flags: { svg: 'https://flagcdn.com/in.svg' },
+        idd: 'IN',
+        region: 'Asia',
+        population: 1380004385
+      },
+      {
+        name: { common: 'China', official: "People's Republic of China" },
+        flags: { svg: 'https://flagcdn.com/cn.svg' },
+        idd: 'CN',
+        region: 'Asia',
+        population: 1439323776
       }
     ];
     
+    console.log('Mock data loaded with', mockCountries.length, 'countries');
     this.countriesSignal.set(mockCountries);
   }
 

@@ -1,10 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Country } from '../../Modules/country';
-import { CountryService } from '../../services/country.service';
+import { SignalCountryService } from '../../services/signal-country.service';
+
+// Use the Country type from the signal service
+type Country = {
+  name: {
+    common: string;
+    official: string;
+  };
+  flags: { svg: string };
+  idd: string;
+  region?: string;
+  population?: number;
+};
 
 @Component({
   selector: 'app-solution14',
@@ -134,19 +143,16 @@ import { CountryService } from '../../services/country.service';
   `]
 })
 export class Solution14Component {
-  title = '🏆 14 - Features including signals, model inputs, native control flow (@if, @for), and modern reactive patterns';
+  title = '🏆 14 - Pure Signal-Based Architecture (Search, Filter, Sort)';
 
   // Modern signal-based search term
   searchTerm = signal('');
   
   // Service injection using inject() function
-  private countryService = inject(CountryService);
+  private countryService = inject(SignalCountryService);
   
-  // Debounced search subject to prevent excessive API calls
-  private searchSubject = new Subject<string>();
-  
-  // Countries data as signal
-  countries = signal<Country[]>([]);
+  // Countries data from signal service
+  countries = this.countryService.getCountries().data;
   
   // Computed signals for derived state
   filteredCountries = computed(() => {
@@ -157,53 +163,22 @@ export class Solution14Component {
     
     return countries.filter((country: Country) => 
       country.name.official.toLowerCase().includes(search) ||
-      country.region.toLowerCase().includes(search)
+      (country.region && country.region.toLowerCase().includes(search))
     );
   });
   
-  // Loading and error states as signals
-  isLoading = signal(false);
-  error = signal<string | null>(null);
+  // Loading and error states from signal service
+  isLoading = this.countryService.getCountries().isLoading;
+  error = this.countryService.getCountries().error;
   
   onSearchChange(value: string) {
     this.searchTerm.set(value);
-    // Use debounced search instead of immediate API call
-    this.searchSubject.next(value);
-  }
-  
-  private searchCountries(term: string) {
-    this.isLoading.set(true);
-    this.error.set(null);
-    
-    this.countryService.searchCountries(term).subscribe({
-      next: (countries) => {
-        this.countries.set(countries);
-        this.isLoading.set(false);
-      },
-      error: (err) => {
-        this.error.set(err.message);
-        this.isLoading.set(false);
-      }
-    });
   }
   
   constructor() {
-    // Set up debounced search with 300ms delay
-    this.searchSubject.pipe(
-      debounceTime(300),
-      distinctUntilChanged(),
-      takeUntilDestroyed()
-    ).subscribe((term: string) => {
-      console.log('Debounced search for:', term);
-      this.searchCountries(term);
-    });
-    
     // Log search term changes (for debugging)
     effect(() => {
       console.log('Search term changed:', this.searchTerm());
     });
-    
-    // Initial search
-    this.searchCountries('');
   }
 }

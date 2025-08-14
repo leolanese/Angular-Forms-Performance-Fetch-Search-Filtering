@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Country } from '../../Modules/country';
 import { CountryService } from '../../services/country.service';
 
@@ -166,7 +167,8 @@ export class Solution14Component {
   
   onSearchChange(value: string) {
     this.searchTerm.set(value);
-    this.searchCountries(value);
+    // Use debounced search instead of immediate API call
+    this.searchSubject.next(value);
   }
   
   private searchCountries(term: string) {
@@ -186,10 +188,22 @@ export class Solution14Component {
   }
   
   constructor() {
-    effect(() => {
-      console.log('Search term:', this.searchTerm());
+    // Set up debounced search with 300ms delay
+    this.searchSubject.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      takeUntilDestroyed()
+    ).subscribe((term: string) => {
+      console.log('Debounced search for:', term);
+      this.searchCountries(term);
     });
     
+    // Log search term changes (for debugging)
+    effect(() => {
+      console.log('Search term changed:', this.searchTerm());
+    });
+    
+    // Initial search
     this.searchCountries('');
   }
 }

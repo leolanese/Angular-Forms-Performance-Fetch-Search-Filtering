@@ -118,11 +118,11 @@ export class Solution14Component {
 
   // Properties
   protected readonly title = '🏆 14 - Pure Signal-Based Architecture with Real API (Search, Filter, Sort)';
-  protected readonly searchTerm = signal('');
 
   // State signals
+  protected readonly searchTerm = signal('');
   protected readonly isLoading = signal(false);
-  protected readonly error = signal<string | null>(null);
+  protected readonly error = signal<{message: string} | null>(null);
 
   // Best Practice: Signal for state + Observable for HTTP
   protected readonly countries = toSignal(

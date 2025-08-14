@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, effect, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, signal } from '@angular/core';
 import { SignalCountryService } from '../../services/signal-country.service';
 import { SignalFilterComponent } from './signal-filter.component';
 import { SignalListComponent } from './signal-list.component';
@@ -16,7 +16,16 @@ import { SignalSortComponent } from './signal-sort.component';
         SignalPaginationComponent,
         SignalSortComponent
     ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
+<!-- 
+-Solution 13: Signal-based Component Driven Architecture
+-Uses signal(), computed(), effect()
+-Modern control flow (@if, @for)
+-Component composition
+-Pure signal-based state management
+No legacy FormBuilder/FormGroup
+-->
       <h3>{{ title }}</h3>
       <div class="container">
         

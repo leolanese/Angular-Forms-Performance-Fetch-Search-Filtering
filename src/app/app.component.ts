@@ -46,6 +46,6 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   `]
 })
 export class AppComponent {
-  title = '🏆🏁 Angular Signal Power: Angular Forms, Search & Filter Performance Lab';
+  title = '🏆🏁 Angular Modern and LegacyForms: Search, filters, pagination, sorting playground area';
 }
 

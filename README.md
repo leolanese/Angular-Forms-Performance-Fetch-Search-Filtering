@@ -7,6 +7,10 @@
 
 ## Demo
 
+- Score
+![demo](./src/assets/forms-playground4.png)
+
+- Winner example 14 - Pure Signal-Based Architecture 
 ![demo](./src/assets/forms-playground3.png)
 
 ---
@@ -49,11 +53,18 @@
 | 11 | Component-driven (filter, sort, pagination), RxJS, modular | 2 | Very modular, but not using Signals. Good for classic Angular. |
 
 
-### Solutions 12–13: Full Signals, Modern trendy Angular
+### Solutions 12–13: Hybrid Signals, Modern trendy Angular
 | Solution | Approach | Rating | Notes |
 |----------|----------|--------|-------|
 | 12 | Component-driven, full Signals (computed, effect, toSignal), modular | 3 | Modern, scalable, maintainable, highly recommended. |
-| 13 | Full Signals (signal, computed, effect), modular, idiomatic | 3 | Most recommended: idiomatic, performant, future-proof, best for new Angular projects. |
+| 13 | Hybrid Signals (signal, computed, effect), modular, idiomatic | 3 | Mostly Remmended: idiomatic, performant, future-proof, best for new Angular projects. |
+
+
+### Solutions 14: Pure Signals, Modern trendy Angular
+| Solution | Approach | Rating | Notes |
+|----------|----------|--------|-------|
+| 14 | Pure Signal-Based Architecture  | 3 | Remmended: idiomatic, performant, future-proof, trendy, follow Angular best practices and best for new and future Angular projects. |
+
 
 ---
 
@@ -101,12 +112,11 @@
 - `Solutions 1–5` are not recommended for new projects.
 - `Solutions 6–11` are transitional or modular, but not as modern as full Signals-based approaches.
 - `Solution 13` is the most recommended, followed closely by `Solution 12`. Both use Angular Signals throughout, are modular, and align with the latest Angular best practices and trends for 2024 and beyond.
-
-> If you want the best performance, maintainability, and future-proofing, use Solution 13.
+- `Solution 14` is the the recommended, followed closely by `Solution 14`. This align with 2025 best practices and recommendations.
 
 ---
 
-## INdividual solutions explanation
+## Individual solutions explanation
 
 1) ✅ Uses:
 - Template-driven forms with [(ngModel)] 2-way binding with ngModelChange
@@ -252,7 +262,7 @@ totalCount = computed(() => this.sortedCountries().length);
 totalPages = computed(() => Math.ceil(this.totalCount() / this.itemsPerPage));
 ```
 
-### Effects for side effects
+### Effects (for side effects)
 
 ```js
 effect(() => {

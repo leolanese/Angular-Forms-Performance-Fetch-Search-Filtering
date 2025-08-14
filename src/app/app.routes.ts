@@ -52,9 +52,13 @@ export const routes: Routes = [
         path: 'solution12', 
         loadComponent: () => import('./Components/solution12/solution12.component').then(m => m.Solution12Component) 
     },
+        { 
+      path: 'solution13', 
+      loadComponent: () => import('./Components/solution13/solution13.component').then(m => m.Solution13Component) 
+    },
     { 
-        path: 'solution13', 
-        loadComponent: () => import('./Components/solution13/solution13.component').then(m => m.Solution13Component) 
+      path: 'solution14', 
+      loadComponent: () => import('./Components/solution14/solution14.component').then(m => m.Solution14Component) 
     },
     {   path: '', redirectTo: 'home', pathMatch: 'full' },
     {   path: '**', component: PageNotFoundComponent }

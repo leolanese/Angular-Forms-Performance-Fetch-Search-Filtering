@@ -21,7 +21,8 @@ import { RouterLink, RouterOutlet } from '@angular/router';
       <a routerLink="/solution10">Solution 10 🟡</a> /
       <a routerLink="/solution11">Solution 11 🟡</a> /
       <a routerLink="/solution12">Solution 12 🟢</a> /
-      <a routerLink="/solution13">Solution 13 🟢</a>
+      <a routerLink="/solution13">Solution 13 🟢</a> /
+      <a routerLink="/solution14">Solution 14 🏆</a>
     </nav>
 
     <router-outlet></router-outlet>
@@ -45,6 +46,6 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   `]
 })
 export class AppComponent {
-  title = '🏁 Angular Signal Power: Angular Forms, Search & Filter Performance Lab';
+  title = '🏆🏁 Angular Signal Power: Angular Forms, Search & Filter Performance Lab';
 }
 

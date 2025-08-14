@@ -1,8 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, effect, inject, signal } from '@angular/core';
-import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 import { Country } from '../../Modules/country';
 import { CountryService } from '../../services/country.service';
 
@@ -120,15 +118,10 @@ export class Solution14Component {
   protected readonly title = '🏆 14 - Pure Signal-Based Architecture with Real API (Search, Filter, Sort)';
   protected readonly searchTerm = signal('');
   
-  // Convert signal to observable, then back to signal with debouncing and real API calls
-  protected readonly countries = toSignal(
-    toObservable(this.searchTerm).pipe(
-      debounceTime(300),
-      distinctUntilChanged(),
-      switchMap((term: string) => this.countryService.searchCountries(term))
-    ),
-    { initialValue: [] as Country[] }
-  );
+  // Pure signal-based state
+  protected readonly countries = signal<Country[]>([]);
+  protected readonly isLoading = signal(false);
+  protected readonly error = signal<string | null>(null);
   
   // Computed signals for derived state
   protected readonly filteredCountries = computed(() => {
@@ -146,10 +139,28 @@ export class Solution14Component {
   // Methods
   protected onSearchChange(value: string): void {
     this.searchTerm.set(value);
+    this.searchCountries(value);
+  }
+  
+  private searchCountries(term: string): void {
+    this.isLoading.set(true);
+    this.error.set(null);
+    
+    this.countryService.searchCountries(term).subscribe({
+      next: (countries) => {
+        this.countries.set(countries);
+        this.isLoading.set(false);
+      },
+      error: (err) => {
+        this.error.set(err.message);
+        this.isLoading.set(false);
+      }
+    });
   }
   
   constructor() {
     this.initLogging();
+    this.initDebouncedSearch();
   }
   
   private initLogging(): void {
@@ -162,6 +173,26 @@ export class Solution14Component {
     effect(() => {
       const countries = this.countries();
       console.log('Countries loaded:', countries.length);
+    });
+  }
+  
+  private initDebouncedSearch(): void {
+    // Simple debouncing using setTimeout
+    let timeoutId: number;
+    
+    effect(() => {
+      const searchTerm = this.searchTerm();
+      
+      // Clear previous timeout
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+      
+      // Set new timeout for debounced search
+      timeoutId = setTimeout(() => {
+        console.log('Debounced search for:', searchTerm);
+        this.searchCountries(searchTerm);
+      }, 300);
     });
   }
 }

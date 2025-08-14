@@ -21,27 +21,27 @@ import { SortDropdownComponent } from "../solution11/sort-dropdown.component";
         SortDropdownComponent
     ],
     template: `
-    <h3>{{ title }}</h3>
-    <div class="container">
-      <form [formGroup]="form">
-        <!-- Filter Input -->
-        <app-filter-input [filterControl]="filterControl"></app-filter-input>
+      <h3>{{ title }}</h3>
+      <div class="container">
+        <form [formGroup]="form">
+          <!-- Filter Input -->
+          <app-filter-input [filterControl]="filterControl"></app-filter-input>
 
-        <!-- Sort Dropdown -->
-        <app-sort-dropdown (sortChanged)="updateSort($event)"></app-sort-dropdown>
+          <!-- Sort Dropdown -->
+          <app-sort-dropdown (sortChanged)="updateSort($event)"></app-sort-dropdown>
 
-        <!-- List -->
-        <app-list [countries]="filteredCountries()"></app-list>
-        <p>Total found: {{ totalCount() }}</p>
+          <!-- List -->
+          <app-list [countries]="filteredCountries()"></app-list>
+          <p>Total found: {{ totalCount() }}</p>
 
-        <!-- Pagination -->
-        <app-pagination
-          [currentPage]="currentPage()"
-          [totalPages]="totalPages()"
-          (pageChange)="updatePage($event)">
-        </app-pagination>
+          <!-- Pagination -->
+          <app-pagination
+            [currentPage]="currentPage()"
+            [totalPages]="totalPages()"
+            (pageChange)="updatePage($event)">
+          </app-pagination>
 
-      </form>
+        </form>
     </div>
   `
 })

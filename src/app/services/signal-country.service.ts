@@ -37,44 +37,6 @@ export class SignalCountryService {
     console.log('Loading mock data directly...');
     this.loadMockData();
     this.loadingSignal.set(false);
-    
-    // Uncomment the following code if you want to try the API again later
-    /*
-    try {
-      // Try to fetch all countries, but with better error handling
-      const response = await fetch('https://restcountries.com/v3.1/all', {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        }
-      });
-      
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      
-      const data = await response.json();
-      const countries = data.map((country: any) => ({
-        name: country.name,
-        flags: country.flags,
-        idd: country.idd?.root + (country.idd?.suffixes?.[0] || '') || country.cca2,
-        region: country.region,
-        population: country.population
-      }));
-      
-      this.countriesSignal.set(countries);
-      this.loadingSignal.set(false);
-    } catch (error) {
-      console.error('Error loading countries:', error);
-      this.errorSignal.set(error instanceof Error ? error.message : 'Failed to load countries');
-      this.loadingSignal.set(false);
-      
-      // Fallback to mock data if API fails
-      console.log('Loading mock data as fallback...');
-      this.loadMockData();
-    }
-    */
   }
 
   private loadMockData() {

@@ -17,49 +17,46 @@ import { SignalSortComponent } from './signal-sort.component';
         SignalSortComponent
     ],
     template: `
-    <div class="container">
-      <h2>Countries List</h2>
-      
-      @if (countryService.getCountries().isLoading()) {
-        <div class="loading">Loading...</div>
-      } @else if (countryService.getCountries().error()) {
-        <div class="error">{{ countryService.getCountries().error() }}</div>
-      } @else {
-        <div class="controls">
-          <app-signal-filter [(filterValue)]="filterText" />
-          <app-signal-sort [(direction)]="sortDirection" />
-        </div>
+      <h3>{{ title }}</h3>
+      <div class="container">
+        
+        @if (countryService.getCountries().isLoading()) {
+          <div class="loading">Loading...</div>
+        } @else if (countryService.getCountries().error()) {
+          <div class="error">{{ countryService.getCountries().error() }}</div>
+        } @else {
+          <div class="controls">
+            <app-signal-filter [(filterValue)]="filterText" />
+            <app-signal-sort [(direction)]="sortDirection" />
+          </div>
 
-        <app-signal-list [countries]="visibleCountries()" />
+          <app-signal-list [countries]="visibleCountries()" />
 
-        <app-signal-pagination
-          [(currentPage)]="currentPage"
-          [totalPages]="totalPages()"
-        />
-      }
+          <app-signal-pagination
+            [(currentPage)]="currentPage"
+            [totalPages]="totalPages()"
+          />
+        }
     </div>
   `,
     styles: [`
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 1rem;
-    }
-    .controls {
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
-    .loading, .error {
-      text-align: center;
-      padding: 2rem;
-      font-size: 1.2rem;
-    }
-    .error {
-      color: #dc3545;
-    }
+      .controls {
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+      .loading, .error {
+        text-align: center;
+        padding: 2rem;
+        font-size: 1.2rem;
+      }
+      .error {
+        color: #dc3545;
+      }
   `]
 })
 export class Solution13Component {
+  title = '13 - Signal-based state management with component composition for search, filtering, sorting, and pagination functionality';
+  
   filterText = signal('');
   sortDirection = signal<'asc' | 'desc'>('asc');
   currentPage = signal(0);

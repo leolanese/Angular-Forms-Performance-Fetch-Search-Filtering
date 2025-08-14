@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { Country } from '../../Modules/country';
 import { CountryService } from '../../services/country.service';
 
@@ -9,10 +10,8 @@ import { CountryService } from '../../services/country.service';
   standalone: true,
   imports: [CommonModule, FormsModule],
   template: `
+    <h3>{{ title }}</h3>
     <div class="container">
-      <h2>🏆 Solution 14: Angular 20+ Modern Patterns</h2>
-      <p class="subtitle">Signals + Model Inputs + Functional Guards + Modern Control Flow</p>
-      
       <div class="search-container">
         <input
           type="text"
@@ -52,13 +51,7 @@ import { CountryService } from '../../services/country.service';
       }
     </div>
   `,
-  styles: [`
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem;
-    }
-    
+  styles: [`   
     .subtitle {
       color: #666;
       margin-bottom: 2rem;
@@ -140,11 +133,16 @@ import { CountryService } from '../../services/country.service';
   `]
 })
 export class Solution14Component {
+  title = '🏆 14 - Features including signals, model inputs, native control flow (@if, @for), and modern reactive patterns';
+
   // Modern signal-based search term
   searchTerm = signal('');
   
   // Service injection using inject() function
   private countryService = inject(CountryService);
+  
+  // Debounced search subject to prevent excessive API calls
+  private searchSubject = new Subject<string>();
   
   // Countries data as signal
   countries = signal<Country[]>([]);
@@ -188,12 +186,10 @@ export class Solution14Component {
   }
   
   constructor() {
-    // Effect to log search changes
     effect(() => {
       console.log('Search term:', this.searchTerm());
     });
     
-    // Initial search
     this.searchCountries('');
   }
 }
